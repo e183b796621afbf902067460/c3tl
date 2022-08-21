@@ -1,6 +1,7 @@
 from web3.exceptions import ContractLogicError
 
 from head.interfaces.overview.builder import IInstrumentOverview
+from head.decorators.threadmethod import threadmethod
 
 from defi.protocols.curve.contracts.Pool import CurvePoolContract
 from defi.tokens.contracts.ERC20Token import ERC20TokenContract
@@ -8,6 +9,7 @@ from defi.tokens.contracts.ERC20Token import ERC20TokenContract
 
 class CurveLiquidityPoolOverview(IInstrumentOverview, CurvePoolContract):
 
+    @threadmethod
     def getOverview(self, *args, **kwargs) -> list:
         overview: list = list()
 

@@ -1,4 +1,5 @@
 from head.interfaces.overview.builder import IInstrumentOverview
+from head.decorators.threadmethod import threadmethod
 
 from defi.protocols.uniswap.contracts.UniswapV2Pair import UniswapV2PairContract
 from defi.tokens.contracts.ERC20Token import ERC20TokenContract
@@ -6,6 +7,7 @@ from defi.tokens.contracts.ERC20Token import ERC20TokenContract
 
 class UniswapV2LiquidityPoolOverview(IInstrumentOverview, UniswapV2PairContract):
 
+    @threadmethod
     def getOverview(self, *args, **kwargs) -> list:
         overview: list = list()
 
