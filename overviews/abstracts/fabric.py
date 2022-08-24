@@ -1,8 +1,9 @@
 from head.interfaces.abstracts.interface import IAbstractFabric
 from head.interfaces.fabrics.interface import IConcreteFabric
 
-from overviews.fabrics.dex.fabric import dexOverviewFabric
-from overviews.fabrics.lending.fabric import lendingOverviewFabric
+from overviews.fabrics.liquidityPool.fabric import liquidityPoolOverviewFabric
+from overviews.fabrics.lendingPool.fabric import lendingPoolOverviewFabric
+from overviews.fabrics.stakingPool.fabric import stakingPoolOverviewFabric
 
 
 class OverviewAbstractFabric(IAbstractFabric):
@@ -20,5 +21,6 @@ class OverviewAbstractFabric(IAbstractFabric):
 
 overviewAbstractFabric = OverviewAbstractFabric()
 
-overviewAbstractFabric.addFabric(fabricType='dex-pool-overview', fabric=dexOverviewFabric)
-overviewAbstractFabric.addFabric(fabricType='lending-pool-overview', fabric=lendingOverviewFabric)
+overviewAbstractFabric.addFabric(fabricType='liquidity-pool-overview', fabric=liquidityPoolOverviewFabric)
+overviewAbstractFabric.addFabric(fabricType='lending-pool-overview', fabric=lendingPoolOverviewFabric)
+overviewAbstractFabric.addFabric(fabricType='staking-pool-overview', fabric=stakingPoolOverviewFabric)

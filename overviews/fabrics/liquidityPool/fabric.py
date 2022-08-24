@@ -7,7 +7,7 @@ from overviews.protocols.uniswap.overview import UniswapV2LiquidityPoolOverview
 from overviews.protocols.sushiswap.overview import SushiswapLiquidityPoolOverview
 
 
-class DEXOverviewFabric(IConcreteFabric):
+class LiquidityPoolOverviewFabric(IConcreteFabric):
 
     def addProduct(self, protocol: str, overview) -> None:
         if not self._products.get(protocol):
@@ -16,13 +16,13 @@ class DEXOverviewFabric(IConcreteFabric):
     def getProduct(self, protocol: str) -> IInstrumentOverview:
         overview: IInstrumentOverview = self._products.get(protocol)
         if not overview:
-            raise ValueError(f'Set HTTP provider for {protocol} blockchain')
+            raise ValueError(f'Set Liquidity Overview handler for {protocol}')
         return overview
 
 
-dexOverviewFabric = DEXOverviewFabric()
+liquidityPoolOverviewFabric = LiquidityPoolOverviewFabric()
 
-dexOverviewFabric.addProduct(protocol='curve', overview=CurveLiquidityPoolOverview())
-dexOverviewFabric.addProduct(protocol='ellipsis', overview=EllipsisLiquidityPoolOverview())
-dexOverviewFabric.addProduct(protocol='uniswap', overview=UniswapV2LiquidityPoolOverview())
-dexOverviewFabric.addProduct(protocol='sushiswap', overview=SushiswapLiquidityPoolOverview())
+liquidityPoolOverviewFabric.addProduct(protocol='curve', overview=CurveLiquidityPoolOverview())
+liquidityPoolOverviewFabric.addProduct(protocol='ellipsis', overview=EllipsisLiquidityPoolOverview())
+liquidityPoolOverviewFabric.addProduct(protocol='uniswap', overview=UniswapV2LiquidityPoolOverview())
+liquidityPoolOverviewFabric.addProduct(protocol='sushiswap', overview=SushiswapLiquidityPoolOverview())
