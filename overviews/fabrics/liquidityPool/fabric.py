@@ -5,6 +5,7 @@ from overviews.protocols.curve.overview import CurveLiquidityPoolOverview
 from overviews.protocols.ellipsis.overview import EllipsisLiquidityPoolOverview
 from overviews.protocols.uniswap.overview import UniswapV2LiquidityPoolOverview
 from overviews.protocols.sushiswap.overview import SushiswapLiquidityPoolOverview
+from overviews.protocols.pancakeswap.overview import PancakeSwapLiquidityPoolOverview
 
 
 class LiquidityPoolOverviewFabric(IConcreteFabric):
@@ -22,7 +23,8 @@ class LiquidityPoolOverviewFabric(IConcreteFabric):
 
 liquidityPoolOverviewFabric = LiquidityPoolOverviewFabric()
 
-liquidityPoolOverviewFabric.addProduct(protocol='curve', overview=CurveLiquidityPoolOverview())
-liquidityPoolOverviewFabric.addProduct(protocol='ellipsis', overview=EllipsisLiquidityPoolOverview())
-liquidityPoolOverviewFabric.addProduct(protocol='uniswap', overview=UniswapV2LiquidityPoolOverview())
-liquidityPoolOverviewFabric.addProduct(protocol='sushiswap', overview=SushiswapLiquidityPoolOverview())
+liquidityPoolOverviewFabric.addProduct(protocol='curve', overview=CurveLiquidityPoolOverview)
+liquidityPoolOverviewFabric.addProduct(protocol='ellipsis', overview=EllipsisLiquidityPoolOverview)
+liquidityPoolOverviewFabric.addProduct(protocol='uniswap', overview=UniswapV2LiquidityPoolOverview)
+liquidityPoolOverviewFabric.addProduct(protocol='sushiswap', overview=SushiswapLiquidityPoolOverview)
+liquidityPoolOverviewFabric.addProduct(protocol='pancakeswap', overview=PancakeSwapLiquidityPoolOverview)

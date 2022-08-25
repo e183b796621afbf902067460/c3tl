@@ -20,5 +20,5 @@ class StakingPoolOverviewFabric(IConcreteFabric):
 
 stakingPoolOverviewFabric = StakingPoolOverviewFabric()
 
-stakingPoolOverviewFabric.addProduct(protocol='curve', overview=CurveStakingPoolOverview())
-stakingPoolOverviewFabric.addProduct(protocol='convex', overview=ConvexStakingPoolOverview())
+stakingPoolOverviewFabric.addProduct(protocol='curve', overview=CurveStakingPoolOverview)
+stakingPoolOverviewFabric.addProduct(protocol='convex', overview=ConvexStakingPoolOverview)

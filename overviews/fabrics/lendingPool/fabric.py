@@ -14,4 +14,4 @@ class LendingPoolOverviewFabric(LiquidityPoolOverviewFabric):
 
 lendingPoolOverviewFabric = LendingPoolOverviewFabric()
 
-lendingPoolOverviewFabric.addProduct(protocol='aave', overview=AaveV2LendingPoolOverview())
+lendingPoolOverviewFabric.addProduct(protocol='aave', overview=AaveV2LendingPoolOverview)
