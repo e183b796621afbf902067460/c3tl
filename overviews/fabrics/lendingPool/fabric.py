@@ -5,6 +5,7 @@ from overviews.fabrics.liquidityPool.fabric import LiquidityPoolOverviewFabric
 from overviews.protocols.aave.overview import AaveV2LendingPoolOverview
 from overviews.protocols.geist.overview import GeistLendingPoolOverview
 from overviews.protocols.sturdy.overview import SturdyLendingPoolOverview
+from overviews.protocols.nereus.overview import NereusLendingPoolOverview
 
 
 class LendingPoolOverviewFabric(LiquidityPoolOverviewFabric):
@@ -20,3 +21,4 @@ lendingPoolOverviewFabric = LendingPoolOverviewFabric()
 lendingPoolOverviewFabric.addProduct(protocol='aave', overview=AaveV2LendingPoolOverview)
 lendingPoolOverviewFabric.addProduct(protocol='geist', overview=GeistLendingPoolOverview)
 lendingPoolOverviewFabric.addProduct(protocol='sturdy', overview=SturdyLendingPoolOverview)
+lendingPoolOverviewFabric.addProduct(protocol='nereus', overview=NereusLendingPoolOverview)
