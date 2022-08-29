@@ -1,4 +1,5 @@
 from head.interfaces.overview.builder import IInstrumentOverview
+from head.decorators.threadmethod import threadmethod
 
 from defi.protocols.aave.contracts.LendingPool import AaveLendingPoolV2Contract
 from defi.protocols.aave.tokens.AToken import ATokenContract
@@ -8,6 +9,7 @@ from defi.tokens.contracts.ERC20Token import ERC20TokenContract
 
 class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
 
+    @threadmethod
     def getOverview(self, asset: str, *args, **kwargs):
         overview: list = list()
 
