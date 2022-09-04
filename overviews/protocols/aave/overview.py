@@ -13,37 +13,39 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
     def getOverview(self, asset: str, *args, **kwargs):
         overview: list = list()
 
-        reserveData: list = self.getReserveData(asset=asset)
+        reserveData: tuple = self.getReserveData(asset=asset)
 
-        aTokenAddress, variableDebtTokenAddress = reserveData[7], reserveData[9]
+        if reserveData[6]:
 
-        aToken: ATokenContract = ATokenContract()\
-            .setAddress(address=aTokenAddress)\
-            .setProvider(provider=self.provider)\
-            .create()
-        variableDebtToken: VariableDebtTokenContract = VariableDebtTokenContract()\
-            .setAddress(address=variableDebtTokenAddress)\
-            .setProvider(provider=self.provider)\
-            .create()
-        t: ERC20TokenContract = ERC20TokenContract()\
-            .setAddress(address=asset)\
-            .setProvider(provider=self.provider)\
-            .create()
+            aTokenAddress, variableDebtTokenAddress = reserveData[7], reserveData[9]
 
-        tSymbol: str = t.symbol()
+            aToken: ATokenContract = ATokenContract()\
+                .setAddress(address=aTokenAddress)\
+                .setProvider(provider=self.provider)\
+                .create()
+            variableDebtToken: VariableDebtTokenContract = VariableDebtTokenContract()\
+                .setAddress(address=variableDebtTokenAddress)\
+                .setProvider(provider=self.provider)\
+                .create()
+            t: ERC20TokenContract = ERC20TokenContract()\
+                .setAddress(address=asset)\
+                .setProvider(provider=self.provider)\
+                .create()
 
-        aTokenDecimals: int = aToken.decimals()
-        variableDebtTokenDecimals: int = variableDebtToken.decimals()
+            tSymbol: str = t.symbol()
 
-        totalReserveSize: float = aToken.totalSupply() / 10 ** aTokenDecimals
-        totalBorrowSize: float = variableDebtToken.totalSupply() / 10 ** variableDebtTokenDecimals
+            aTokenDecimals: int = aToken.decimals()
+            variableDebtTokenDecimals: int = variableDebtToken.decimals()
 
-        tPrice: float = self.trader.getPrice(major=tSymbol, vs='USD')
+            totalReserveSize: float = aToken.totalSupply() / 10 ** aTokenDecimals
+            totalBorrowSize: float = variableDebtToken.totalSupply() / 10 ** variableDebtTokenDecimals
 
-        aOverview: dict = {
-            'reserve': totalReserveSize,
-            'borrow': totalBorrowSize,
-            'price': tPrice
-        }
-        overview.append(aOverview)
+            tPrice: float = self.trader.getPrice(major=tSymbol, vs='USD')
+
+            aOverview: dict = {
+                'reserve': totalReserveSize,
+                'borrow': totalBorrowSize,
+                'price': tPrice
+            }
+            overview.append(aOverview)
         return overview
