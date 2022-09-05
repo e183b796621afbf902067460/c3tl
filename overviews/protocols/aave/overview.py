@@ -13,9 +13,8 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
     def getOverview(self, asset: str, *args, **kwargs):
         overview: list = list()
 
-        reserveData: tuple = self.getReserveData(asset=asset)
-
-        if reserveData[6]:
+        if self.trader.isStablecoin(address=asset):
+            reserveData: tuple = self.getReserveData(asset=asset)
 
             aTokenAddress, variableDebtTokenAddress = reserveData[7], reserveData[9]
 
