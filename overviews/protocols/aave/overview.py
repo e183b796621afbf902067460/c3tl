@@ -42,6 +42,7 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
             tPrice: float = self.trader.getPrice(major=tSymbol, vs='USD')
 
             aOverview: dict = {
+                'symbol': tSymbol,
                 'reserve': totalReserveSize,
                 'borrow': totalBorrowSize,
                 'price': tPrice
