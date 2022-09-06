@@ -7,31 +7,23 @@ from head.bridge.configurator import BridgeConfigurator
 provider = BridgeConfigurator(
     abstractFabric=providerAbstractFabric,
     fabricKey='http',
-    productKey='avax')\
+    productKey='eth')\
     .produceProduct()
 
 overview = BridgeConfigurator(
     abstractFabric=overviewAbstractFabric,
-    fabricKey='lending-pool-overview',
-    productKey='nereus')\
+    fabricKey='staking-pool-overview',
+    productKey='convex')\
     .produceProduct()()\
-    .setAddress(address='0xB9257597EDdfA0eCaff04FF216939FBc31AAC026')\
+    .setAddress(address='0x22eE18aca7F3Ee920D01F25dA85840D12d98E8Ca')\
     .setProvider(provider=provider)\
     .setTrader(trader=headTrader)\
     .create()
 
 
-assets = overview.getReservesList()
+future = overview.getOverview()
+result = future.result()
 
-
-futures = list()
-for asset in assets:
-    future = overview.getOverview(asset)
-    futures.append(future)
-
-for future in futures:
-    _ = future.result()
-    if _:
-        assert isinstance(_[0]['reserve'], (int, float))
-        assert isinstance(_[0]['borrow'], (int, float))
-        assert isinstance(_[0]['price'], (int, float))
+assert isinstance(result[0]['symbol'], str)
+assert isinstance(result[0]['reserve'], (int, float))
+assert isinstance(result[0]['price'], (int, float))
