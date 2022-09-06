@@ -10,7 +10,7 @@ provider = BridgeConfigurator(
     productKey='ftm')\
     .produceProduct()
 
-overview = BridgeConfigurator(
+overviewContract = BridgeConfigurator(
     abstractFabric=overviewAbstractFabric,
     fabricKey='lending-pool-overview',
     productKey='geist')\
@@ -21,17 +21,18 @@ overview = BridgeConfigurator(
     .create()
 
 
-assets = overview.getReservesList()
+assets = overviewContract.getReservesList()
 
 
 futures = list()
 for asset in assets:
-    future = overview.getOverview(asset)
+    future = overviewContract.getOverview(asset)
     futures.append(future)
 
 for future in futures:
-    _ = future.result()
-    if _:
-        assert isinstance(_[0]['reserve'], (int, float))
-        assert isinstance(_[0]['borrow'], (int, float))
-        assert isinstance(_[0]['price'], (int, float))
+    overview = future.result()
+    if overview:
+        for aOverview in overview:
+            assert isinstance(aOverview['reserve'], (int, float))
+            assert isinstance(aOverview['borrow'], (int, float))
+            assert isinstance(aOverview['price'], (int, float))

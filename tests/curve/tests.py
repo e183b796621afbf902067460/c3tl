@@ -12,10 +12,10 @@ provider = BridgeConfigurator(
 
 overviewContract = BridgeConfigurator(
     abstractFabric=overviewAbstractFabric,
-    fabricKey='staking-pool-overview',
-    productKey='convex')\
+    fabricKey='liquidity-pool-overview',
+    productKey='curve')\
     .produceProduct()()\
-    .setAddress(address='0x22eE18aca7F3Ee920D01F25dA85840D12d98E8Ca')\
+    .setAddress(address='0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7')\
     .setProvider(provider=provider)\
     .setTrader(trader=headTrader)\
     .create()
