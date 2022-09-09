@@ -1,38 +1,67 @@
-from providers.abstracts.fabric import providerAbstractFabric
+import unittest
+from concurrent.futures import Future
+
+import builtins
+
+from overviews.protocols.aave.overview import AaveV2LendingPoolOverview
 from overviews.abstracts.fabric import overviewAbstractFabric
+
+from providers.abstracts.fabric import providerAbstractFabric
 from traders.head.trader import headTrader
 from head.bridge.configurator import BridgeConfigurator
 
 
-provider = BridgeConfigurator(
-    abstractFabric=providerAbstractFabric,
-    fabricKey='http',
-    productKey='eth')\
-    .produceProduct()
+class TestAaveLendingPoolOverview(unittest.TestCase):
 
-overviewContract = BridgeConfigurator(
-    abstractFabric=overviewAbstractFabric,
-    fabricKey='lending-pool-overview',
-    productKey='aave')\
-    .produceProduct()()\
-    .setAddress(address='0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9')\
-    .setProvider(provider=provider)\
-    .setTrader(trader=headTrader)\
-    .create()
+    _address = '0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9'
 
+    _provider = BridgeConfigurator(
+        abstractFabric=providerAbstractFabric,
+        fabricKey='http',
+        productKey='eth') \
+        .produceProduct()
 
-assets = overviewContract.getReservesList()
+    _instance = BridgeConfigurator(
+        abstractFabric=overviewAbstractFabric,
+        fabricKey='lending-pool-overview',
+        productKey='aave') \
+        .produceProduct()() \
+        .setAddress(address=_address) \
+        .setProvider(provider=_provider) \
+        .setTrader(trader=headTrader) \
+        .create()
 
+    def testInstance(self):
+        self.assertIsInstance(self._instance, AaveV2LendingPoolOverview)
 
-futures = list()
-for asset in assets:
-    future = overviewContract.getOverview(asset)
-    futures.append(future)
+    def testProvider(self):
+        self.assertEqual(self._instance.provider, self._provider)
 
-for future in futures:
-    overview = future.result()
-    if overview:
-        for aOverview in overview:
-            assert isinstance(aOverview['reserve'], (int, float))
-            assert isinstance(aOverview['borrow'], (int, float))
-            assert isinstance(aOverview['price'], (int, float))
+    def testAddress(self):
+        self.assertEqual(self._instance.address, self._address)
+
+    def testHead(self):
+        self.assertEqual(self._instance.trader, headTrader)
+
+    def test_getOverview(self):
+        reserves = self._instance.getReservesList()
+
+        futures = list()
+        for reserve in reserves:
+            future = self._instance.getOverview(asset=reserve)
+            futures.append(future)
+            self.assertIsInstance(future, Future)
+
+        for future in futures:
+            overview = future.result()
+            self.assertIsInstance(overview, list)
+
+            if overview:
+                for aOverview in overview:
+                    self.assertIsInstance(aOverview, dict)
+
+                    self.assertIsInstance(aOverview['symbol'], str)
+                    self.assertIsInstance(aOverview['reserve'], (int, float))
+                    self.assertIsInstance(aOverview['borrow'], (int, float))
+                    self.assertIsInstance(aOverview['price'], (int, float))
+                builtins.print('\n', overview)
