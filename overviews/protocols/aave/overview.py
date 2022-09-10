@@ -10,42 +10,44 @@ from defi.tokens.contracts.ERC20Token import ERC20TokenContract
 class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
 
     @threadmethod
-    def getOverview(self, asset: str, *args, **kwargs):
+    def getOverview(self, *args, **kwargs):
         overview: list = list()
 
-        if self.trader.isStablecoin(address=asset):
-            reserveData: tuple = self.getReserveData(asset=asset)
+        reservesList: list = self.getReservesList()
+        for reserveAddress in reservesList:
+            if self.trader.isStablecoin(address=reserveAddress):
+                reserveData: tuple = self.getReserveData(asset=reserveAddress)
 
-            aTokenAddress, variableDebtTokenAddress = reserveData[7], reserveData[9]
+                aTokenAddress, variableDebtTokenAddress = reserveData[7], reserveData[9]
 
-            aToken: ATokenContract = ATokenContract()\
-                .setAddress(address=aTokenAddress)\
-                .setProvider(provider=self.provider)\
-                .create()
-            variableDebtToken: VariableDebtTokenContract = VariableDebtTokenContract()\
-                .setAddress(address=variableDebtTokenAddress)\
-                .setProvider(provider=self.provider)\
-                .create()
-            t: ERC20TokenContract = ERC20TokenContract()\
-                .setAddress(address=asset)\
-                .setProvider(provider=self.provider)\
-                .create()
+                aToken: ATokenContract = ATokenContract()\
+                    .setAddress(address=aTokenAddress)\
+                    .setProvider(provider=self.provider)\
+                    .create()
+                variableDebtToken: VariableDebtTokenContract = VariableDebtTokenContract()\
+                    .setAddress(address=variableDebtTokenAddress)\
+                    .setProvider(provider=self.provider)\
+                    .create()
+                t: ERC20TokenContract = ERC20TokenContract()\
+                    .setAddress(address=reserveAddress)\
+                    .setProvider(provider=self.provider)\
+                    .create()
 
-            tSymbol: str = t.symbol()
+                tSymbol: str = t.symbol()
 
-            aTokenDecimals: int = aToken.decimals()
-            variableDebtTokenDecimals: int = variableDebtToken.decimals()
+                aTokenDecimals: int = aToken.decimals()
+                variableDebtTokenDecimals: int = variableDebtToken.decimals()
 
-            totalReserveSize: float = aToken.totalSupply() / 10 ** aTokenDecimals
-            totalBorrowSize: float = variableDebtToken.totalSupply() / 10 ** variableDebtTokenDecimals
+                totalReserveSize: float = aToken.totalSupply() / 10 ** aTokenDecimals
+                totalBorrowSize: float = variableDebtToken.totalSupply() / 10 ** variableDebtTokenDecimals
 
-            tPrice: float = self.trader.getPrice(major=tSymbol, vs='USD')
+                tPrice: float = self.trader.getPrice(major=tSymbol, vs='USD')
 
-            aOverview: dict = {
-                'symbol': tSymbol,
-                'reserve': totalReserveSize,
-                'borrow': totalBorrowSize,
-                'price': tPrice
-            }
-            overview.append(aOverview)
+                aOverview: dict = {
+                    'symbol': tSymbol,
+                    'reserve': totalReserveSize,
+                    'borrow': totalBorrowSize,
+                    'price': tPrice
+                }
+                overview.append(aOverview)
         return overview

@@ -44,24 +44,16 @@ class TestSturdyLendingPoolOverview(unittest.TestCase):
         self.assertEqual(self._instance.trader, headTrader)
 
     def test_getOverview(self):
-        reserves = self._instance.getReservesList()
+        future = self._instance.getOverview()
+        self.assertIsInstance(future, Future)
 
-        futures = list()
-        for reserve in reserves:
-            future = self._instance.getOverview(asset=reserve)
-            futures.append(future)
-            self.assertIsInstance(future, Future)
+        overview = future.result()
+        self.assertIsInstance(overview, list)
 
-        for future in futures:
-            overview = future.result()
-            self.assertIsInstance(overview, list)
+        for aOverview in overview:
+            self.assertIsInstance(aOverview, dict)
 
-            if overview:
-                for aOverview in overview:
-                    self.assertIsInstance(aOverview, dict)
-
-                    self.assertIsInstance(aOverview['symbol'], str)
-                    self.assertIsInstance(aOverview['reserve'], (int, float))
-                    self.assertIsInstance(aOverview['borrow'], (int, float))
-                    self.assertIsInstance(aOverview['price'], (int, float))
-                builtins.print('\n', overview)
+            self.assertIsInstance(aOverview['symbol'], str)
+            self.assertIsInstance(aOverview['reserve'], (int, float))
+            self.assertIsInstance(aOverview['price'], (int, float))
+        builtins.print('\n', overview)
