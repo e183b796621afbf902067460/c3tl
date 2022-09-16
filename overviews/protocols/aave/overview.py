@@ -8,6 +8,8 @@ from defi.tokens.contracts.ERC20Token import ERC20TokenContract
 
 
 class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
+    _RAY: int = 10 ** 27
+    _SECONDS_PER_YEAR = 31536000
 
     @threadmethod
     def getOverview(self, *args, **kwargs):
@@ -17,6 +19,12 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
         for reserveAddress in reservesList:
             if self.trader.isStablecoin(address=reserveAddress):
                 reserveData: tuple = self.getReserveData(asset=reserveAddress)
+
+                liquidityRate, variableBorrowRate = reserveData[3], reserveData[4]
+                depositAPR, variableBorrowAPR = liquidityRate / self._RAY, variableBorrowRate / self._RAY
+
+                depositAPY = ((1 + (depositAPR / self._SECONDS_PER_YEAR)) ** self._SECONDS_PER_YEAR) - 1
+                variableBorrowAPY = ((1 + (variableBorrowAPR / self._SECONDS_PER_YEAR)) ** self._SECONDS_PER_YEAR) - 1
 
                 aTokenAddress, variableDebtTokenAddress = reserveData[7], reserveData[9]
 
@@ -47,7 +55,9 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
                     'symbol': tSymbol,
                     'reserve': totalReserveSize,
                     'borrow': totalBorrowSize,
-                    'price': tPrice
+                    'price': tPrice,
+                    'depositAPY': depositAPY,
+                    'borrowAPY': variableBorrowAPY
                 }
                 overview.append(aOverview)
         return overview

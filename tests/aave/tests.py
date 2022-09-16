@@ -56,4 +56,6 @@ class TestAaveLendingPoolOverview(unittest.TestCase):
             self.assertIsInstance(aOverview['symbol'], str)
             self.assertIsInstance(aOverview['reserve'], (int, float))
             self.assertIsInstance(aOverview['price'], (int, float))
+            self.assertIsInstance(aOverview['depositAPY'], (int, float))
+            self.assertIsInstance(aOverview['borrowAPY'], (int, float))
         builtins.print('\n', overview)
