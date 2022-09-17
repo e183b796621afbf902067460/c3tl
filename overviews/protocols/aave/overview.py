@@ -9,7 +9,7 @@ from defi.tokens.contracts.ERC20Token import ERC20TokenContract
 
 class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
     _RAY: int = 10 ** 27
-    _SECONDS_PER_YEAR = 31536000
+    _SECONDS_PER_YEAR: int = 31536000
 
     @threadmethod
     def getOverview(self, *args, **kwargs):
@@ -56,8 +56,8 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
                     'reserve': totalReserveSize,
                     'borrow': totalBorrowSize,
                     'price': tPrice,
-                    'depositAPY': depositAPY,
-                    'borrowAPY': variableBorrowAPY
+                    'depositAPY': depositAPY * 100,
+                    'borrowAPY': variableBorrowAPY * 100
                 }
                 overview.append(aOverview)
         return overview
