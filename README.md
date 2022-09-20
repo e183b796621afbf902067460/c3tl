@@ -40,7 +40,7 @@ _provider = BridgeConfigurator(
             productKey='eth') \
             .produceProduct()
             
-overview = BridgeConfigurator(
+instance = BridgeConfigurator(
             abstractFabric=overviewAbstractFabric,
             fabricKey='liquidity-pool-overview',
             productKey='curve') \
@@ -50,4 +50,4 @@ overview = BridgeConfigurator(
             .setTrader(trader=headTrader) \
             .create()
 ```
-After call `overview.getOverview()` it'll return a __Future__ object because it's a [@threadmethod](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/decorators/threadmethod.py), so if returned value is needed just call `overview.getOverview().result()`, but only for tests.
+After call `instance.getOverview()` it'll return a __Future__ object because it's a [@threadmethod](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/decorators/threadmethod.py), so if returned value is needed just call `instance.getOverview().result()`, but only for tests.
