@@ -3,7 +3,7 @@
 Depends on: [defi-head-core](https://github.com/e183b796621afbf902067460/defi-head-core), [defi-providers-fabric](https://github.com/e183b796621afbf902067460/defi-providers-fabric), [defi-contracts-evm](https://github.com/e183b796621afbf902067460/defi-contracts-evm) and for tests will be needed [hybrid-traders-composite](https://github.com/e183b796621afbf902067460/hybrid-traders-composite)
 
 ---
-Based on input arguments an `Abstract Fabric` return `Concrete Fabric` object such as: *Liquidity Pool Overview Fabric*, *Staking Pool Overview Fabric* or  *Lending Pool Overview Fabric*.
+Based on input arguments an `OverviewAbstractFabric` return `Concrete Fabric` object such as: *LiquidityPoolOverviewFabric*, *StakingPoolOverviewFabric* or  *LendingPoolOverviewFabric*.
 `Concrete Fabric` (Liquidity, Staking or Lending) can produce needed `IInstrumentOverview Object` for different purposes.
 
 For example, to get `CurveLiquidityPoolOverview` need to call `BridgeConfigurator` and pass to it constructor next arguments and then call `produceProduct()` method:
