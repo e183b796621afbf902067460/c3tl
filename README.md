@@ -51,3 +51,5 @@ instance = BridgeConfigurator(
             .create()
 ```
 After call `instance.getOverview()` it'll return a __Future__ object because it's a [@threadmethod](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/decorators/threadmethod.py), so if returned value is needed just call `instance.getOverview().result()`, but only for tests.
+
+All fabrics and products keys can be viewed in the right factories.
