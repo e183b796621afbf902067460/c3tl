@@ -22,7 +22,7 @@ overview = BridgeConfigurator(
             .produceProduct()
 ```
 
-Current overview object is `CurveLiquidityPoolOverview`. After it's production need to set certain __properties__ to call `getOverview()` correctly. Let's see how it works in synergy:
+Current overview object is `CurveLiquidityPoolOverview`. After it's production need to set certain __properties__ to call `getOverview()` method correctly. Let's see how it works in synergy:
 ```
 from head.bridge.configurator import BridgeConfigurator
 
