@@ -7,7 +7,7 @@ The Overview object is a complex class that helps to get the necessary data from
 `IConcreteFabric` (Liquidity, Staking or Lending) can produce needed [`IInstrumentOverview Class`](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/interfaces/overview/builder.py) for different purposes.
 
 # Configuration
-To provide needed configuration just need to set environment variables for needed blockchain [node](https://github.com/e183b796621afbf902067460/defi-providers-fabric/tree/master/providers/fabrics).
+To provide needed configuration just need to set environment variables for needed blockchain node in certain [fabric](https://github.com/e183b796621afbf902067460/defi-providers-fabric/tree/master/providers/fabrics).
 
 # Usage
 For example, to get [`CurveLiquidityPoolOverview`](https://github.com/e183b796621afbf902067460/defi-overviews-fabric/blob/master/overviews/protocols/curve/overview.py) need to call [`BridgeConfigurator`](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/bridge/configurator.py) and pass to it constructor next arguments and then call `produceProduct()` method:
