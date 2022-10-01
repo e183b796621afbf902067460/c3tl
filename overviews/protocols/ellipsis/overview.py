@@ -1,7 +1,7 @@
 from defi.protocols.ellipsis.contracts.Pool import EllipsisPoolContract
 
-from overviews.protocols.curve.overview import CurveLiquidityPoolOverview
+from overviews.protocols.curve.overview import CurveDEXPoolOverview
 
 
-class EllipsisLiquidityPoolOverview(CurveLiquidityPoolOverview, EllipsisPoolContract):
+class EllipsisDEXPoolOverview(CurveDEXPoolOverview, EllipsisPoolContract):
     pass

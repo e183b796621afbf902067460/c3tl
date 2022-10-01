@@ -3,7 +3,7 @@ from concurrent.futures import Future
 
 import builtins
 
-from overviews.protocols.curve.overview import CurveLiquidityPoolOverview
+from overviews.protocols.curve.overview import CurveDEXPoolOverview
 from overviews.abstracts.fabric import overviewAbstractFabric
 
 from providers.abstracts.fabric import providerAbstractFabric
@@ -11,7 +11,7 @@ from traders.head.trader import headTrader
 from head.bridge.configurator import BridgeConfigurator
 
 
-class TestCurveLiquidityPoolOverview(unittest.TestCase):
+class TestCurveDEXPoolOverview(unittest.TestCase):
 
     _address = '0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7'
 
@@ -23,7 +23,7 @@ class TestCurveLiquidityPoolOverview(unittest.TestCase):
 
     _instance = BridgeConfigurator(
         abstractFabric=overviewAbstractFabric,
-        fabricKey='liquidity-pool-overview',
+        fabricKey='dex-pool-overview',
         productKey='curve') \
         .produceProduct()() \
         .setAddress(address=_address) \
@@ -32,7 +32,7 @@ class TestCurveLiquidityPoolOverview(unittest.TestCase):
         .create()
 
     def testInstance(self):
-        self.assertIsInstance(self._instance, CurveLiquidityPoolOverview)
+        self.assertIsInstance(self._instance, CurveDEXPoolOverview)
 
     def testProvider(self):
         self.assertEqual(self._instance.provider, self._provider)

@@ -3,7 +3,7 @@ from concurrent.futures import Future
 
 import builtins
 
-from overviews.protocols.pancakeswap.overview import PancakeSwapLiquidityPoolOverview
+from overviews.protocols.pancakeswap.overview import PancakeSwapDEXPoolOverview
 from overviews.abstracts.fabric import overviewAbstractFabric
 
 from providers.abstracts.fabric import providerAbstractFabric
@@ -11,7 +11,7 @@ from traders.head.trader import headTrader
 from head.bridge.configurator import BridgeConfigurator
 
 
-class TestPancakeswapLiquidityPoolOverview(unittest.TestCase):
+class TestPancakeswapDEXPoolOverview(unittest.TestCase):
 
     _address = '0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16'
 
@@ -23,7 +23,7 @@ class TestPancakeswapLiquidityPoolOverview(unittest.TestCase):
 
     _instance = BridgeConfigurator(
         abstractFabric=overviewAbstractFabric,
-        fabricKey='liquidity-pool-overview',
+        fabricKey='dex-pool-overview',
         productKey='pancakeswap') \
         .produceProduct()() \
         .setAddress(address=_address) \
@@ -32,7 +32,7 @@ class TestPancakeswapLiquidityPoolOverview(unittest.TestCase):
         .create()
 
     def testInstance(self):
-        self.assertIsInstance(self._instance, PancakeSwapLiquidityPoolOverview)
+        self.assertIsInstance(self._instance, PancakeSwapDEXPoolOverview)
 
     def testProvider(self):
         self.assertEqual(self._instance.provider, self._provider)

@@ -3,7 +3,7 @@ from concurrent.futures import Future
 
 import builtins
 
-from overviews.protocols.uniswap.overview import UniswapV2LiquidityPoolOverview
+from overviews.protocols.uniswap.overview import UniswapV2DEXPoolOverview
 from overviews.abstracts.fabric import overviewAbstractFabric
 
 from providers.abstracts.fabric import providerAbstractFabric
@@ -11,7 +11,7 @@ from traders.head.trader import headTrader
 from head.bridge.configurator import BridgeConfigurator
 
 
-class TestUniswapV2LiquidityPoolOverview(unittest.TestCase):
+class TestUniswapV2DEXPoolOverview(unittest.TestCase):
 
     _address = '0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc'
 
@@ -23,7 +23,7 @@ class TestUniswapV2LiquidityPoolOverview(unittest.TestCase):
 
     _instance = BridgeConfigurator(
         abstractFabric=overviewAbstractFabric,
-        fabricKey='liquidity-pool-overview',
+        fabricKey='dex-pool-overview',
         productKey='uniswap') \
         .produceProduct()() \
         .setAddress(address=_address) \
@@ -32,7 +32,7 @@ class TestUniswapV2LiquidityPoolOverview(unittest.TestCase):
         .create()
 
     def testInstance(self):
-        self.assertIsInstance(self._instance, UniswapV2LiquidityPoolOverview)
+        self.assertIsInstance(self._instance, UniswapV2DEXPoolOverview)
 
     def testProvider(self):
         self.assertEqual(self._instance.provider, self._provider)

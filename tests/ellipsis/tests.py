@@ -3,7 +3,7 @@ from concurrent.futures import Future
 
 import builtins
 
-from overviews.protocols.ellipsis.overview import EllipsisLiquidityPoolOverview
+from overviews.protocols.ellipsis.overview import EllipsisDEXPoolOverview
 from overviews.abstracts.fabric import overviewAbstractFabric
 
 from providers.abstracts.fabric import providerAbstractFabric
@@ -11,7 +11,7 @@ from traders.head.trader import headTrader
 from head.bridge.configurator import BridgeConfigurator
 
 
-class TestEllipsisLiquidityPoolOverview(unittest.TestCase):
+class TestEllipsisDEXPoolOverview(unittest.TestCase):
 
     _address = '0x160CAed03795365F3A589f10C379FfA7d75d4E76'
 
@@ -23,7 +23,7 @@ class TestEllipsisLiquidityPoolOverview(unittest.TestCase):
 
     _instance = BridgeConfigurator(
         abstractFabric=overviewAbstractFabric,
-        fabricKey='liquidity-pool-overview',
+        fabricKey='dex-pool-overview',
         productKey='ellipsis') \
         .produceProduct()() \
         .setAddress(address=_address) \
@@ -32,7 +32,7 @@ class TestEllipsisLiquidityPoolOverview(unittest.TestCase):
         .create()
 
     def testInstance(self):
-        self.assertIsInstance(self._instance, EllipsisLiquidityPoolOverview)
+        self.assertIsInstance(self._instance, EllipsisDEXPoolOverview)
 
     def testProvider(self):
         self.assertEqual(self._instance.provider, self._provider)

@@ -1,6 +1,6 @@
 from head.interfaces.overview.builder import IInstrumentOverview
 
-from overviews.fabrics.liquidityPool.fabric import LiquidityPoolOverviewFabric
+from overviews.fabrics.dexPool.fabric import DEXPoolOverviewFabric
 
 from overviews.protocols.aave.overview import AaveV2LendingPoolOverview
 from overviews.protocols.geist.overview import GeistLendingPoolOverview
@@ -8,7 +8,7 @@ from overviews.protocols.sturdy.overview import SturdyLendingPoolOverview
 from overviews.protocols.nereus.overview import NereusLendingPoolOverview
 
 
-class LendingPoolOverviewFabric(LiquidityPoolOverviewFabric):
+class LendingPoolOverviewFabric(DEXPoolOverviewFabric):
     def getProduct(self, protocol: str) -> IInstrumentOverview:
         overview: IInstrumentOverview = self._products.get(protocol)
         if not overview:

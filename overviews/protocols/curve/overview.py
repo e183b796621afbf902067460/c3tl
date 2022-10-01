@@ -9,7 +9,7 @@ from defi.protocols.curve.tokens.LPToken import CurveLPTokenContract
 from defi.tokens.contracts.ERC20Token import ERC20TokenContract
 
 
-class CurveLiquidityPoolOverview(IInstrumentOverview, CurvePoolContract):
+class CurveDEXPoolOverview(IInstrumentOverview, CurvePoolContract):
 
     @threadmethod
     def getOverview(self, *args, **kwargs) -> list:

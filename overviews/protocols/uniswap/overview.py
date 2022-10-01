@@ -5,7 +5,7 @@ from defi.protocols.uniswap.contracts.UniswapV2Pair import UniswapV2PairContract
 from defi.tokens.contracts.ERC20Token import ERC20TokenContract
 
 
-class UniswapV2LiquidityPoolOverview(IInstrumentOverview, UniswapV2PairContract):
+class UniswapV2DEXPoolOverview(IInstrumentOverview, UniswapV2PairContract):
 
     @threadmethod
     def getOverview(self, *args, **kwargs) -> list:
