@@ -11,7 +11,7 @@ To provide needed configuration just need to set environment variables for neede
 
 # Usage
 For example, to get [`CurveLiquidityPoolOverview`](https://github.com/e183b796621afbf902067460/defi-overviews-fabric/blob/master/overviews/protocols/curve/overview.py) need to call [`BridgeConfigurator`](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/bridge/configurator.py) and pass to it constructor next arguments and then call `produceProduct()` method:
-```
+```python
 from head.bridge.configurator import BridgeConfigurator
 from overviews.abstracts.fabric import overviewAbstractFabric   
 
@@ -27,7 +27,7 @@ overview = BridgeConfigurator(
 ```
 
 Current overview object is `CurveLiquidityPoolOverview`. After it's production need to set certain __properties__ to call `create()` method correctly. Let's see how it works in synergy:
-```
+```python
 from head.bridge.configurator import BridgeConfigurator
 
 from providers.abstracts.fabric import providerAbstractFabric
