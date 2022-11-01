@@ -1,11 +1,11 @@
 from head.interfaces.overview.builder import IInstrumentOverview
 from head.decorators.threadmethod import threadmethod
 
-from defi.protocols.uniswap.contracts.UniswapV2Pair import UniswapV2PairContract
+from defi.protocols.uniswap.contracts.UniswapV2Pair import UniSwapV2PairContract
 from defi.tokens.contracts.ERC20Token import ERC20TokenContract
 
 
-class UniswapV2DEXPoolOverview(IInstrumentOverview, UniswapV2PairContract):
+class UniswapV2DEXPoolOverview(IInstrumentOverview, UniSwapV2PairContract):
 
     @threadmethod
     def getOverview(self, *args, **kwargs) -> list:
