@@ -1,7 +1,7 @@
 from defi.protocols.pancakeswap.contracts.PancakePair import PancakePairContract
 
-from overviews.protocols.uniswap.overview import UniswapV2DEXPoolOverview
+from overviews.protocols.uniswap.overview import UniSwapV2DEXPoolOverview
 
 
-class PancakeSwapDEXPoolOverview(UniswapV2DEXPoolOverview, PancakePairContract):
+class PancakeSwapDEXPoolOverview(UniSwapV2DEXPoolOverview, PancakePairContract):
     pass

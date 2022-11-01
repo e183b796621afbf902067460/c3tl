@@ -3,8 +3,8 @@ from head.interfaces.overview.builder import IInstrumentOverview
 
 from overviews.protocols.curve.overview import CurveDEXPoolOverview
 from overviews.protocols.ellipsis.overview import EllipsisDEXPoolOverview
-from overviews.protocols.uniswap.overview import UniswapV2DEXPoolOverview
-from overviews.protocols.sushiswap.overview import SushiswapDEXPoolOverview
+from overviews.protocols.uniswap.overview import UniSwapV2DEXPoolOverview
+from overviews.protocols.sushiswap.overview import SushiSwapDEXPoolOverview
 from overviews.protocols.pancakeswap.overview import PancakeSwapDEXPoolOverview
 
 
@@ -25,6 +25,6 @@ dexPoolOverviewFabric = DEXPoolOverviewFabric()
 
 dexPoolOverviewFabric.addProduct(protocol='curve', overview=CurveDEXPoolOverview)
 dexPoolOverviewFabric.addProduct(protocol='ellipsis', overview=EllipsisDEXPoolOverview)
-dexPoolOverviewFabric.addProduct(protocol='uniswap', overview=UniswapV2DEXPoolOverview)
-dexPoolOverviewFabric.addProduct(protocol='sushiswap', overview=SushiswapDEXPoolOverview)
+dexPoolOverviewFabric.addProduct(protocol='uniswap', overview=UniSwapV2DEXPoolOverview)
+dexPoolOverviewFabric.addProduct(protocol='sushiswap', overview=SushiSwapDEXPoolOverview)
 dexPoolOverviewFabric.addProduct(protocol='pancakeswap', overview=PancakeSwapDEXPoolOverview)

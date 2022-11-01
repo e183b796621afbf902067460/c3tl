@@ -1,7 +1,7 @@
 from defi.protocols.sushiswap.contracts.UniswapV2Pair import SushiSwapUniSwapV2PairContract
 
-from overviews.protocols.uniswap.overview import UniswapV2DEXPoolOverview
+from overviews.protocols.uniswap.overview import UniSwapV2PairContract
 
 
-class SushiswapDEXPoolOverview(UniswapV2DEXPoolOverview, SushiSwapUniSwapV2PairContract):
+class SushiSwapDEXPoolOverview(UniSwapV2PairContract, SushiSwapUniSwapV2PairContract):
     pass
