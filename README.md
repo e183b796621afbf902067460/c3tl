@@ -4,7 +4,7 @@ Depends on: [defi-head-core](https://github.com/e183b796621afbf902067460/defi-he
 
 ---
 The Overview object is a complex class that helps to get the necessary data from a smart contract. Different Overviews return different data. Based on input arguments an [`OverviewAbstractFabric`](https://github.com/e183b796621afbf902067460/defi-overviews-fabric/blob/master/overviews/abstracts/fabric.py) return [`IConcreteFabric`](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/interfaces/fabrics/interface.py) object such as: [*DEXPoolOverviewFabric*](https://github.com/e183b796621afbf902067460/defi-overviews-fabric/blob/master/overviews/fabrics/dexPool/fabric.py), [*StakingPoolOverviewFabric*](https://github.com/e183b796621afbf902067460/defi-overviews-fabric/blob/master/overviews/fabrics/stakingPool/fabric.py) or  [*LendingPoolOverviewFabric*](https://github.com/e183b796621afbf902067460/defi-overviews-fabric/blob/master/overviews/fabrics/lendingPool/fabric.py) etc.
-`IConcreteFabric` (DEX, Staking or Lending) can produce needed [`IInstrumentOverview Class`](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/interfaces/overview/builder.py) for different purposes.
+`IConcreteFabric` (DEX, Staking or Lending etc.) can produce needed [`IInstrumentOverview Class`](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/interfaces/overview/builder.py) for different purposes.
 
 # Configuration
 To provide needed configuration just need to set environment variables for needed blockchain node in certain [fabric](https://github.com/e183b796621afbf902067460/defi-providers-fabric/tree/master/providers/fabrics).
