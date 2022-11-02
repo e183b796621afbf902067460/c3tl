@@ -16,7 +16,7 @@ from head.bridge.configurator import BridgeConfigurator
 from overviews.abstracts.fabric import overviewAbstractFabric   
 
 
-concreteFabricKey = 'liquidity-pool-overview'
+concreteFabricKey = 'dex-pool-overview'
 concreteProductKey = 'curve'
 
 overview = BridgeConfigurator(
@@ -46,7 +46,7 @@ _provider = BridgeConfigurator(
             
 instance = BridgeConfigurator(
             abstractFabric=overviewAbstractFabric,
-            fabricKey='liquidity-pool-overview',
+            fabricKey='dex-pool-overview',
             productKey='curve') \
             .produceProduct()() \
             .setAddress(address=_address) \
