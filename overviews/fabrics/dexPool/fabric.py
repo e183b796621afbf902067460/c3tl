@@ -17,7 +17,7 @@ class DEXPoolOverviewFabric(IConcreteFabric):
     def getProduct(self, protocol: str) -> IInstrumentOverview:
         overview: IInstrumentOverview = self._products.get(protocol)
         if not overview:
-            raise ValueError(f'Set Liquidity Overview handler for {protocol}')
+            raise ValueError(f'Set DEX Overview handler for {protocol}')
         return overview
 
 
