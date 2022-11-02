@@ -1,6 +1,5 @@
+from head.interfaces.fabrics.interface import IConcreteFabric
 from head.interfaces.overview.builder import IInstrumentOverview
-
-from overviews.fabrics.dexPool.fabric import DEXPoolOverviewFabric
 
 from overviews.protocols.aave.overview import AaveV2LendingPoolOverview
 from overviews.protocols.geist.overview import GeistLendingPoolOverview
@@ -8,7 +7,12 @@ from overviews.protocols.sturdy.overview import SturdyLendingPoolOverview
 from overviews.protocols.nereus.overview import NereusLendingPoolOverview
 
 
-class LendingPoolOverviewFabric(DEXPoolOverviewFabric):
+class LendingPoolOverviewFabric(IConcreteFabric):
+
+    def addProduct(self, protocol: str, overview) -> None:
+        if not self._products.get(protocol):
+            self._products[protocol]: IInstrumentOverview = overview
+
     def getProduct(self, protocol: str) -> IInstrumentOverview:
         overview: IInstrumentOverview = self._products.get(protocol)
         if not overview:
