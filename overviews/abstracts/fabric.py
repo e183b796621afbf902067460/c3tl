@@ -7,6 +7,7 @@ from overviews.fabrics.stakingPool.fabric import stakingPoolOverviewFabric
 
 from overviews.fabrics.dexPoolAllocation.fabric import dexPoolAllocationOverviewFabric
 from overviews.fabrics.lendingPoolAllocation.fabric import lendingPoolAllocationOverviewFabric
+from overviews.fabrics.stakingPoolAllocation.fabric import stakingPoolAllocationOverviewFabric
 
 
 class OverviewAbstractFabric(IAbstractFabric):
@@ -29,3 +30,4 @@ overviewAbstractFabric.addFabric(fabricType='lending-pool-overview', fabric=lend
 overviewAbstractFabric.addFabric(fabricType='staking-pool-overview', fabric=stakingPoolOverviewFabric)
 overviewAbstractFabric.addFabric(fabricType='dex-pool-allocation-overview', fabric=dexPoolAllocationOverviewFabric)
 overviewAbstractFabric.addFabric(fabricType='lending-pool-allocation-overview', fabric=lendingPoolAllocationOverviewFabric)
+overviewAbstractFabric.addFabric(fabricType='staking-pool-allocation-overview', fabric=stakingPoolAllocationOverviewFabric)
