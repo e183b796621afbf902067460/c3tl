@@ -1,13 +1,13 @@
 from head.interfaces.abstracts.interface import IAbstractFabric
 from head.interfaces.fabrics.interface import IConcreteFabric
 
-from overviews.fabrics.dexPool.fabric import dexPoolOverviewFabric
-from overviews.fabrics.lendingPool.fabric import lendingPoolOverviewFabric
-from overviews.fabrics.stakingPool.fabric import stakingPoolOverviewFabric
+from overviews.fabrics.pool.dexPool.fabric import dexPoolOverviewFabric
+from overviews.fabrics.pool.lendingPool.fabric import lendingPoolOverviewFabric
+from overviews.fabrics.pool.stakingPool.fabric import stakingPoolOverviewFabric
 
-from overviews.fabrics.dexPoolAllocation.fabric import dexPoolAllocationOverviewFabric
-from overviews.fabrics.lendingPoolAllocation.fabric import lendingPoolAllocationOverviewFabric
-from overviews.fabrics.stakingPoolAllocation.fabric import stakingPoolAllocationOverviewFabric
+from overviews.fabrics.allocation.dexPoolAllocation.fabric import dexPoolAllocationOverviewFabric
+from overviews.fabrics.allocation.lendingPoolAllocation.fabric import lendingPoolAllocationOverviewFabric
+from overviews.fabrics.allocation.stakingPoolAllocation.fabric import stakingPoolAllocationOverviewFabric
 
 
 class OverviewAbstractFabric(IAbstractFabric):
