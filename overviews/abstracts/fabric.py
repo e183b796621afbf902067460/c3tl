@@ -4,10 +4,12 @@ from head.interfaces.fabrics.interface import IConcreteFabric
 from overviews.fabrics.pool.dexPool.fabric import dexPoolOverviewFabric
 from overviews.fabrics.pool.lendingPool.fabric import lendingPoolOverviewFabric
 from overviews.fabrics.pool.stakingPool.fabric import stakingPoolOverviewFabric
+from overviews.fabrics.pool.farmingPool.fabric import farmingPoolOverviewFabric
 
 from overviews.fabrics.allocation.dexPoolAllocation.fabric import dexPoolAllocationOverviewFabric
 from overviews.fabrics.allocation.lendingPoolAllocation.fabric import lendingPoolAllocationOverviewFabric
 from overviews.fabrics.allocation.stakingPoolAllocation.fabric import stakingPoolAllocationOverviewFabric
+from overviews.fabrics.allocation.farmingPoolAllocation.fabric import farmingPoolAllocationOverviewFabric
 
 
 class OverviewAbstractFabric(IAbstractFabric):
@@ -28,6 +30,9 @@ overviewAbstractFabric = OverviewAbstractFabric()
 overviewAbstractFabric.addFabric(fabricType='dex-pool-overview', fabric=dexPoolOverviewFabric)
 overviewAbstractFabric.addFabric(fabricType='lending-pool-overview', fabric=lendingPoolOverviewFabric)
 overviewAbstractFabric.addFabric(fabricType='staking-pool-overview', fabric=stakingPoolOverviewFabric)
+overviewAbstractFabric.addFabric(fabricType='farming-pool-overview', fabric=farmingPoolOverviewFabric)
+
 overviewAbstractFabric.addFabric(fabricType='dex-pool-allocation-overview', fabric=dexPoolAllocationOverviewFabric)
 overviewAbstractFabric.addFabric(fabricType='lending-pool-allocation-overview', fabric=lendingPoolAllocationOverviewFabric)
 overviewAbstractFabric.addFabric(fabricType='staking-pool-allocation-overview', fabric=stakingPoolAllocationOverviewFabric)
+overviewAbstractFabric.addFabric(fabricType='farming-pool-allocation-overview', fabric=farmingPoolAllocationOverviewFabric)

@@ -17,7 +17,7 @@ class EllipsisDEXPoolOverview(CurveDEXPoolOverview, EllipsisPoolContract):
     pass
 
 
-class EllipsisStakingPoolAllocationOverview(IInstrumentOverview, EllipsisRewardsTokenContract):
+class EllipsisFarmingPoolAllocationOverview(IInstrumentOverview, EllipsisRewardsTokenContract):
     _chiefContract: EllipsisLPStakingContract = EllipsisLPStakingContract
 
     _providers: dict = {

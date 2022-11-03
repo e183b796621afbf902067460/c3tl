@@ -5,3 +5,7 @@ from overviews.protocols.uniswap.overview import UniSwapV2DEXPoolOverview
 
 class PancakeSwapDEXPoolOverview(UniSwapV2DEXPoolOverview, PancakePairContract):
     pass
+
+
+class PancakeSwapFarmingPoolAllocationOverview(UniSwapV2DEXPoolOverview, PancakePairContract):
+    pass

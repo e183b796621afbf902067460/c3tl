@@ -44,7 +44,7 @@ class CurveDEXPoolOverview(IInstrumentOverview, CurvePoolContract):
         return overview
 
 
-class CurveStakingPoolOverview(IInstrumentOverview, CurveGaugeContract):
+class CurveFarmingPoolOverview(IInstrumentOverview, CurveGaugeContract):
 
     @threadmethod
     def getOverview(self, *args, **kwargs) -> list:
@@ -71,7 +71,7 @@ class CurveStakingPoolOverview(IInstrumentOverview, CurveGaugeContract):
         return overview
 
 
-class CurveStakingPoolAllocationOverview(IInstrumentOverview, CurveGaugeContract):
+class CurveFarmingPoolAllocationOverview(IInstrumentOverview, CurveGaugeContract):
 
     @threadmethod
     def getOverview(self, address, *args, **kwargs) -> list:
