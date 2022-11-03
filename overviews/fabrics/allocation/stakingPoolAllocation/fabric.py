@@ -3,6 +3,7 @@ from head.interfaces.overview.builder import IInstrumentOverview
 
 from overviews.protocols.convex.overview import ConvexStakingPoolAllocationOverview
 from overviews.protocols.curve.overview import CurveStakingPoolAllocationOverview
+from overviews.protocols.ellipsis.overview import EllipsisStakingPoolAllocationOverview
 
 
 class StakingPoolAllocationOverviewFabric(IConcreteFabric):
@@ -22,3 +23,4 @@ stakingPoolAllocationOverviewFabric = StakingPoolAllocationOverviewFabric()
 
 stakingPoolAllocationOverviewFabric.addProduct(protocol='convex', overview=ConvexStakingPoolAllocationOverview)
 stakingPoolAllocationOverviewFabric.addProduct(protocol='curve', overview=CurveStakingPoolAllocationOverview)
+stakingPoolAllocationOverviewFabric.addProduct(protocol='ellipsis', overview=EllipsisStakingPoolAllocationOverview)
