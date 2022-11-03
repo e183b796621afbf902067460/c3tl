@@ -1,4 +1,5 @@
 from web3.exceptions import ContractLogicError
+from web3 import Web3
 
 from head.interfaces.overview.builder import IInstrumentOverview
 from head.decorators.threadmethod import threadmethod
@@ -67,4 +68,32 @@ class CurveStakingPoolOverview(IInstrumentOverview, CurveGaugeContract):
         }
         overview.append(aOverview)
 
+        return overview
+
+
+class CurveStakingPoolAllocationOverview(IInstrumentOverview, CurveGaugeContract):
+
+    @threadmethod
+    def getOverview(self, address, *args, **kwargs) -> list:
+        overview: list = list()
+
+        address: str = Web3.toChecksumAddress(address)
+
+        tAddress: str = self.lp_token()
+        t: CurveLPTokenContract = CurveLPTokenContract() \
+            .setAddress(address=tAddress) \
+            .setProvider(provider=self.provider) \
+            .create()
+        symbol: str = t.symbol()
+        decimals: int = t.decimals()
+        price: float = self.trader.getPrice(major=symbol, vs='USD')
+
+        balanceOf: int = self.balanceOf(address=address)
+
+        allocationOverview: dict = {
+            'symbol': symbol,
+            'amount': balanceOf / 10 ** decimals,
+            'price': price
+        }
+        overview.append(allocationOverview)
         return overview
