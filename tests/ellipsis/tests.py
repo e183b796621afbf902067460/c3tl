@@ -59,7 +59,7 @@ class TestEllipsisDEXPoolOverview(unittest.TestCase):
         builtins.print('\n', overview)
 
 
-class TestEllipsisStakingPoolAllocationOverview(unittest.TestCase):
+class TestEllipsisFarmingPoolAllocationOverview(unittest.TestCase):
 
     _address = '0xB343F4cDE5e2049857898E800CD385247e21836D'
     _wallet = '0x3DdfA8eC3052539b6C9549F12cEA2C295cfF5296'

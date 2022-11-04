@@ -60,7 +60,7 @@ class TestCurveDEXPoolOverview(unittest.TestCase):
         builtins.print('\n', overview)
 
 
-class TestCurveStakingPoolAllocationOverview(unittest.TestCase):
+class TestCurveFarmingPoolAllocationOverview(unittest.TestCase):
 
     _address = '0x72E158d38dbd50A483501c24f792bDAAA3e7D55C'
     _wallet = '0x670647441D9C24d981923C9293A2e4EAE6d0C8B3'
