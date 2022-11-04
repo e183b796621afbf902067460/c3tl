@@ -18,7 +18,7 @@ class EllipsisDEXPoolOverview(CurveDEXPoolOverview, EllipsisPoolContract):
 
 
 class EllipsisFarmingPoolAllocationOverview(IInstrumentOverview, EllipsisRewardsTokenContract):
-    _chiefContract: EllipsisLPStakingContract = EllipsisLPStakingContract
+    _chiefContract: EllipsisLPStakingContract = EllipsisLPStakingContract()
 
     _providers: dict = {
         'bsc': {
@@ -42,7 +42,7 @@ class EllipsisFarmingPoolAllocationOverview(IInstrumentOverview, EllipsisRewards
         overview: list = list()
 
         address: str = Web3.toChecksumAddress(address)
-        chief: EllipsisLPStakingContract = self._chiefContract()\
+        chief: EllipsisLPStakingContract = self._chiefContract\
                 .setAddress(address=self._chiefAddresses[self.provider]['chief'])\
                 .setProvider(provider=self.provider)\
                 .create()

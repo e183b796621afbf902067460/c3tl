@@ -3,7 +3,7 @@ from concurrent.futures import Future
 
 import builtins
 
-from overviews.protocols.ellipsis.overview import EllipsisDEXPoolOverview, EllipsisStakingPoolAllocationOverview
+from overviews.protocols.ellipsis.overview import EllipsisDEXPoolOverview, EllipsisFarmingPoolAllocationOverview
 from overviews.abstracts.fabric import overviewAbstractFabric
 
 from providers.abstracts.fabric import providerAbstractFabric
@@ -72,7 +72,7 @@ class TestEllipsisStakingPoolAllocationOverview(unittest.TestCase):
 
     _instance = BridgeConfigurator(
         abstractFabric=overviewAbstractFabric,
-        fabricKey='staking-pool-allocation-overview',
+        fabricKey='farming-pool-allocation-overview',
         productKey='ellipsis') \
         .produceProduct()() \
         .setAddress(address=_address) \
@@ -81,7 +81,7 @@ class TestEllipsisStakingPoolAllocationOverview(unittest.TestCase):
         .create()
 
     def testInstance(self):
-        self.assertIsInstance(self._instance, EllipsisStakingPoolAllocationOverview)
+        self.assertIsInstance(self._instance, EllipsisFarmingPoolAllocationOverview)
 
     def testProvider(self):
         self.assertEqual(self._instance.provider, self._provider)

@@ -4,7 +4,7 @@ from concurrent.futures import Future
 import builtins
 
 from overviews.protocols.curve.overview import CurveDEXPoolOverview
-from overviews.protocols.curve.overview import CurveStakingPoolAllocationOverview
+from overviews.protocols.curve.overview import CurveFarmingPoolAllocationOverview
 from overviews.abstracts.fabric import overviewAbstractFabric
 
 from providers.abstracts.fabric import providerAbstractFabric
@@ -73,7 +73,7 @@ class TestCurveStakingPoolAllocationOverview(unittest.TestCase):
 
     _instance = BridgeConfigurator(
         abstractFabric=overviewAbstractFabric,
-        fabricKey='staking-pool-allocation-overview',
+        fabricKey='farming-pool-allocation-overview',
         productKey='curve') \
         .produceProduct()() \
         .setAddress(address=_address) \
@@ -82,7 +82,7 @@ class TestCurveStakingPoolAllocationOverview(unittest.TestCase):
         .create()
 
     def testInstance(self):
-        self.assertIsInstance(self._instance, CurveStakingPoolAllocationOverview)
+        self.assertIsInstance(self._instance, CurveFarmingPoolAllocationOverview)
 
     def testProvider(self):
         self.assertEqual(self._instance.provider, self._provider)
