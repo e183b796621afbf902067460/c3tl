@@ -1,5 +1,4 @@
 from web3 import Web3
-from typing import Optional
 
 from defi.protocols.pancakeswap.contracts.PancakePair import PancakePairContract
 from defi.protocols.pancakeswap.contracts.MasterChefV2 import PancakeSwapMasterChefV2Contract
