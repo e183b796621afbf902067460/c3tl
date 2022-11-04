@@ -61,3 +61,42 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
                 }
                 overview.append(aOverview)
         return overview
+
+
+class AaveV2LendingPoolAllocationOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
+    _RAY: int = 10 ** 27
+    _SECONDS_PER_YEAR: int = 31536000
+
+    @threadmethod
+    def getOverview(self, address: str, *args, **kwargs):
+        overview: list = list()
+
+        userConfiguration: str = bin(self.getUserConfiguration(address=address)[0])[2:]
+        reservesList: list = self.getReservesList()
+        for i, mask in enumerate(userConfiguration[::-1]):
+            reserveTokenAddress: str = reservesList[i // 2]
+            reserveData: tuple = self.getReserveData(asset=reserveTokenAddress)
+            if mask == '1':
+                if i % 2:
+                    reserveToken: ERC20TokenContract = ERC20TokenContract()\
+                                .setAddress(address=reserveTokenAddress)\
+                                .setProvider(provider=self.provider)\
+                                .create()
+                    reserveTokenSymbol: str = reserveToken.symbol()
+                    reserveTokenPrice: float = self.trader.getPrice(major=reserveTokenSymbol, vs='USD')
+
+                    aTokenAddress: str = reserveData[7]
+                    aToken: ERC20TokenContract = ERC20TokenContract()\
+                                .setAddress(address=aTokenAddress)\
+                                .setProvider(provider=self.provider)\
+                                .create()
+                    aTokenDecimals: int = aToken.decimals()
+                    collateral: int = aToken.balanceOf(address=address) / 10 ** aTokenDecimals
+
+                    aOverview: dict = {
+                        'symbol': reserveTokenSymbol,
+                        'amount': collateral,
+                        'price': reserveTokenPrice
+                    }
+                    overview.append(aOverview)
+        return overview

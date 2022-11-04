@@ -1,6 +1,8 @@
 from head.interfaces.fabrics.interface import IConcreteFabric
 from head.interfaces.overview.builder import IInstrumentOverview
 
+from overviews.protocols.aave.overview import AaveV2LendingPoolAllocationOverview
+
 
 class LendingPoolAllocationOverviewFabric(IConcreteFabric):
 
@@ -16,3 +18,5 @@ class LendingPoolAllocationOverviewFabric(IConcreteFabric):
 
 
 lendingPoolAllocationOverviewFabric = LendingPoolAllocationOverviewFabric()
+
+lendingPoolAllocationOverviewFabric.addProduct(protocol='aave', overview=AaveV2LendingPoolAllocationOverview)
