@@ -64,8 +64,6 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
 
 
 class AaveV2LendingPoolAllocationOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
-    _RAY: int = 10 ** 27
-    _SECONDS_PER_YEAR: int = 31536000
 
     @threadmethod
     def getOverview(self, address: str, *args, **kwargs):

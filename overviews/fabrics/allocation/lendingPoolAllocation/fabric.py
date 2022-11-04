@@ -3,6 +3,7 @@ from head.interfaces.overview.builder import IInstrumentOverview
 
 from overviews.protocols.aave.overview import AaveV2LendingPoolAllocationOverview
 from overviews.protocols.geist.overview import GeistLendingPoolAllocationOverview
+from overviews.protocols.nereus.overview import NereusLendingPoolAllocationOverview
 
 
 class LendingPoolAllocationOverviewFabric(IConcreteFabric):
@@ -22,3 +23,4 @@ lendingPoolAllocationOverviewFabric = LendingPoolAllocationOverviewFabric()
 
 lendingPoolAllocationOverviewFabric.addProduct(protocol='aave', overview=AaveV2LendingPoolAllocationOverview)
 lendingPoolAllocationOverviewFabric.addProduct(protocol='geist', overview=GeistLendingPoolAllocationOverview)
+lendingPoolAllocationOverviewFabric.addProduct(protocol='nereus', overview=NereusLendingPoolAllocationOverview)
