@@ -2,6 +2,7 @@ from head.interfaces.fabrics.interface import IConcreteFabric
 from head.interfaces.overview.builder import IInstrumentOverview
 
 from overviews.protocols.aave.overview import AaveV2LendingPoolBorrowOverview
+from overviews.protocols.geist.overview import GeistLendingPoolBorrowOverview
 
 
 class LendingPoolBorrowOverviewFabric(IConcreteFabric):
@@ -20,3 +21,4 @@ class LendingPoolBorrowOverviewFabric(IConcreteFabric):
 lendingPoolBorrowOverviewFabric = LendingPoolBorrowOverviewFabric()
 
 lendingPoolBorrowOverviewFabric.addProduct(protocol='aave', overview=AaveV2LendingPoolBorrowOverview)
+lendingPoolBorrowOverviewFabric.addProduct(protocol='geist', overview=GeistLendingPoolBorrowOverview)
