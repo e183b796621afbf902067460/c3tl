@@ -1,3 +1,5 @@
+from web3.exceptions import BadFunctionCallOutput
+
 from head.interfaces.overview.builder import IInstrumentOverview
 from head.decorators.threadmethod import threadmethod
 
@@ -20,14 +22,20 @@ class NereusLendingPoolAllocationOverview(IInstrumentOverview, NereusLendingPool
         reservesList: list = self.getReservesList()
         for i, mask in enumerate(userConfiguration[::-1]):
             reserveTokenAddress: str = reservesList[i // 2]
-            reserveData: tuple = self.getReserveData(asset=reserveTokenAddress)
+            try:
+                reserveData: tuple = self.getReserveData(asset=reserveTokenAddress)
+            except BadFunctionCallOutput:
+                continue
             if mask == '1':
                 if i % 2:
                     reserveToken: ERC20TokenContract = ERC20TokenContract() \
                         .setAddress(address=reserveTokenAddress) \
                         .setProvider(provider=self.provider) \
                         .create()
-                    reserveTokenSymbol: str = reserveToken.symbol()
+                    try:
+                        reserveTokenSymbol: str = reserveToken.symbol()
+                    except OverflowError:
+                        continue
                     reserveTokenPrice: float = self.trader.getPrice(major=reserveTokenSymbol, vs='USD')
 
                     aTokenAddress: str = reserveData[7]

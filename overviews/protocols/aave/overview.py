@@ -1,3 +1,5 @@
+from web3.exceptions import BadFunctionCallOutput
+
 from head.interfaces.overview.builder import IInstrumentOverview
 from head.decorators.threadmethod import threadmethod
 
@@ -11,55 +13,60 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
     _RAY: int = 10 ** 27
     _SECONDS_PER_YEAR: int = 31536000
 
-    @threadmethod
+    # @threadmethod
     def getOverview(self, *args, **kwargs):
         overview: list = list()
 
         reservesList: list = self.getReservesList()
         for reserveAddress in reservesList:
-            if self.trader.isStablecoin(address=reserveAddress):
+            try:
                 reserveData: tuple = self.getReserveData(asset=reserveAddress)
+            except BadFunctionCallOutput:
+                continue
 
-                liquidityRate, variableBorrowRate = reserveData[3], reserveData[4]
-                depositAPR, variableBorrowAPR = liquidityRate / self._RAY, variableBorrowRate / self._RAY
+            liquidityRate, variableBorrowRate = reserveData[3], reserveData[4]
+            depositAPR, variableBorrowAPR = liquidityRate / self._RAY, variableBorrowRate / self._RAY
 
-                depositAPY = ((1 + (depositAPR / self._SECONDS_PER_YEAR)) ** self._SECONDS_PER_YEAR) - 1
-                variableBorrowAPY = ((1 + (variableBorrowAPR / self._SECONDS_PER_YEAR)) ** self._SECONDS_PER_YEAR) - 1
+            depositAPY = ((1 + (depositAPR / self._SECONDS_PER_YEAR)) ** self._SECONDS_PER_YEAR) - 1
+            variableBorrowAPY = ((1 + (variableBorrowAPR / self._SECONDS_PER_YEAR)) ** self._SECONDS_PER_YEAR) - 1
 
-                aTokenAddress, variableDebtTokenAddress = reserveData[7], reserveData[9]
+            aTokenAddress, variableDebtTokenAddress = reserveData[7], reserveData[9]
 
-                aToken: ATokenContract = ATokenContract()\
-                    .setAddress(address=aTokenAddress)\
-                    .setProvider(provider=self.provider)\
-                    .create()
-                variableDebtToken: VariableDebtTokenContract = VariableDebtTokenContract()\
-                    .setAddress(address=variableDebtTokenAddress)\
-                    .setProvider(provider=self.provider)\
-                    .create()
-                t: ERC20TokenContract = ERC20TokenContract()\
-                    .setAddress(address=reserveAddress)\
-                    .setProvider(provider=self.provider)\
-                    .create()
+            aToken: ATokenContract = ATokenContract()\
+                .setAddress(address=aTokenAddress)\
+                .setProvider(provider=self.provider)\
+                .create()
+            variableDebtToken: VariableDebtTokenContract = VariableDebtTokenContract()\
+                .setAddress(address=variableDebtTokenAddress)\
+                .setProvider(provider=self.provider)\
+                .create()
+            t: ERC20TokenContract = ERC20TokenContract()\
+                .setAddress(address=reserveAddress)\
+                .setProvider(provider=self.provider)\
+                .create()
 
+            try:
                 tSymbol: str = t.symbol()
+            except OverflowError:
+                continue
 
-                aTokenDecimals: int = aToken.decimals()
-                variableDebtTokenDecimals: int = variableDebtToken.decimals()
+            aTokenDecimals: int = aToken.decimals()
+            variableDebtTokenDecimals: int = variableDebtToken.decimals()
 
-                totalReserveSize: float = aToken.totalSupply() / 10 ** aTokenDecimals
-                totalBorrowSize: float = variableDebtToken.totalSupply() / 10 ** variableDebtTokenDecimals
+            totalReserveSize: float = aToken.totalSupply() / 10 ** aTokenDecimals
+            totalBorrowSize: float = variableDebtToken.totalSupply() / 10 ** variableDebtTokenDecimals
 
-                tPrice: float = self.trader.getPrice(major=tSymbol, vs='USD')
+            tPrice: float = self.trader.getPrice(major=tSymbol, vs='USD')
 
-                aOverview: dict = {
-                    'symbol': tSymbol,
-                    'reserve': totalReserveSize,
-                    'borrow': totalBorrowSize,
-                    'price': tPrice,
-                    'depositAPY': depositAPY * 100,
-                    'borrowAPY': variableBorrowAPY * 100
-                }
-                overview.append(aOverview)
+            aOverview: dict = {
+                'symbol': tSymbol,
+                'reserve': totalReserveSize,
+                'borrow': totalBorrowSize,
+                'price': tPrice,
+                'depositAPY': depositAPY * 100,
+                'borrowAPY': variableBorrowAPY * 100
+            }
+            overview.append(aOverview)
         return overview
 
 
@@ -73,14 +80,20 @@ class AaveV2LendingPoolAllocationOverview(IInstrumentOverview, AaveLendingPoolV2
         reservesList: list = self.getReservesList()
         for i, mask in enumerate(userConfiguration[::-1]):
             reserveTokenAddress: str = reservesList[i // 2]
-            reserveData: tuple = self.getReserveData(asset=reserveTokenAddress)
+            try:
+                reserveData: tuple = self.getReserveData(asset=reserveTokenAddress)
+            except BadFunctionCallOutput:
+                continue
             if mask == '1':
                 if i % 2:
                     reserveToken: ERC20TokenContract = ERC20TokenContract()\
                                 .setAddress(address=reserveTokenAddress)\
                                 .setProvider(provider=self.provider)\
                                 .create()
-                    reserveTokenSymbol: str = reserveToken.symbol()
+                    try:
+                        reserveTokenSymbol: str = reserveToken.symbol()
+                    except OverflowError:
+                        continue
                     reserveTokenPrice: float = self.trader.getPrice(major=reserveTokenSymbol, vs='USD')
 
                     aTokenAddress: str = reserveData[7]
