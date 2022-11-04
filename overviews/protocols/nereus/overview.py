@@ -1,4 +1,5 @@
 from web3.exceptions import BadFunctionCallOutput
+from web3 import Web3
 
 from head.interfaces.overview.builder import IInstrumentOverview
 from head.decorators.threadmethod import threadmethod
@@ -17,6 +18,7 @@ class NereusLendingPoolAllocationOverview(IInstrumentOverview, NereusLendingPool
     @threadmethod
     def getOverview(self, address: str, *args, **kwargs):
         overview: list = list()
+        address: str = Web3.toChecksumAddress(value=address)
 
         userConfiguration: str = bin(self.getUserConfiguration(address=address)[0][0])[2:]
         reservesList: list = self.getReservesList()
@@ -56,9 +58,12 @@ class NereusLendingPoolAllocationOverview(IInstrumentOverview, NereusLendingPool
 
 
 class NereusLendingPoolBorrowOverview(IInstrumentOverview, NereusLendingPoolContract):
+    _DECIMALS: int = 18
+
     @threadmethod
     def getOverview(self, address: str, *args, **kwargs):
         overview: list = list()
+        address: str = Web3.toChecksumAddress(value=address)
 
         userConfiguration: str = bin(self.getUserConfiguration(address=address)[0][0])[2:]
         reservesList: list = self.getReservesList()
@@ -106,7 +111,7 @@ class NereusLendingPoolBorrowOverview(IInstrumentOverview, NereusLendingPoolCont
                         'symbol': reserveTokenSymbol,
                         'amount': debt,
                         'price': reserveTokenPrice,
-                        'healthFactor': healthFactor / 10 ** reserveToken.decimals()
+                        'healthFactor': healthFactor / 10 ** self._DECIMALS
                     }
                     overview.append(aOverview)
         return overview

@@ -1,4 +1,6 @@
-from overviews.protocols.aave.overview import AaveV2LendingPoolOverview, AaveV2LendingPoolAllocationOverview
+from overviews.protocols.aave.overview import (
+    AaveV2LendingPoolOverview, AaveV2LendingPoolAllocationOverview, AaveV2LendingPoolBorrowOverview
+)
 
 from defi.protocols.sturdy.contracts.LendingPool import SturdyLendingPoolContract
 
@@ -8,4 +10,8 @@ class SturdyLendingPoolOverview(AaveV2LendingPoolOverview, SturdyLendingPoolCont
 
 
 class SturdyLendingPoolAllocationOverview(AaveV2LendingPoolAllocationOverview, SturdyLendingPoolContract):
+    pass
+
+
+class SturdyLendingPoolBorrowOverview(AaveV2LendingPoolBorrowOverview, SturdyLendingPoolContract):
     pass

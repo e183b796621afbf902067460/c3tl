@@ -4,6 +4,7 @@ from head.interfaces.overview.builder import IInstrumentOverview
 from overviews.protocols.aave.overview import AaveV2LendingPoolBorrowOverview
 from overviews.protocols.geist.overview import GeistLendingPoolBorrowOverview
 from overviews.protocols.nereus.overview import NereusLendingPoolBorrowOverview
+from overviews.protocols.sturdy.overview import SturdyLendingPoolBorrowOverview
 
 
 class LendingPoolBorrowOverviewFabric(IConcreteFabric):
@@ -24,3 +25,4 @@ lendingPoolBorrowOverviewFabric = LendingPoolBorrowOverviewFabric()
 lendingPoolBorrowOverviewFabric.addProduct(protocol='aave', overview=AaveV2LendingPoolBorrowOverview)
 lendingPoolBorrowOverviewFabric.addProduct(protocol='geist', overview=GeistLendingPoolBorrowOverview)
 lendingPoolBorrowOverviewFabric.addProduct(protocol='nereus', overview=NereusLendingPoolBorrowOverview)
+lendingPoolBorrowOverviewFabric.addProduct(protocol='sturdy', overview=SturdyLendingPoolBorrowOverview)

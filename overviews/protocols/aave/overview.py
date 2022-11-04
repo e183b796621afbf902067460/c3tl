@@ -1,4 +1,5 @@
 from web3.exceptions import BadFunctionCallOutput
+from web3 import Web3
 
 from head.interfaces.overview.builder import IInstrumentOverview
 from head.decorators.threadmethod import threadmethod
@@ -13,7 +14,7 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
     _RAY: int = 10 ** 27
     _SECONDS_PER_YEAR: int = 31536000
 
-    # @threadmethod
+    @threadmethod
     def getOverview(self, *args, **kwargs):
         overview: list = list()
 
@@ -75,6 +76,7 @@ class AaveV2LendingPoolAllocationOverview(IInstrumentOverview, AaveLendingPoolV2
     @threadmethod
     def getOverview(self, address: str, *args, **kwargs):
         overview: list = list()
+        address: str = Web3.toChecksumAddress(value=address)
 
         userConfiguration: str = bin(self.getUserConfiguration(address=address)[0])[2:]
         reservesList: list = self.getReservesList()
@@ -114,10 +116,12 @@ class AaveV2LendingPoolAllocationOverview(IInstrumentOverview, AaveLendingPoolV2
 
 
 class AaveV2LendingPoolBorrowOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
+    _DECIMALS: int = 18
 
     @threadmethod
     def getOverview(self, address: str, *args, **kwargs):
         overview: list = list()
+        address: str = Web3.toChecksumAddress(value=address)
 
         userConfiguration: str = bin(self.getUserConfiguration(address=address)[0])[2:]
         reservesList: list = self.getReservesList()
@@ -165,7 +169,7 @@ class AaveV2LendingPoolBorrowOverview(IInstrumentOverview, AaveLendingPoolV2Cont
                         'symbol': reserveTokenSymbol,
                         'amount': debt,
                         'price': reserveTokenPrice,
-                        'healthFactor': healthFactor / 10 ** reserveToken.decimals()
+                        'healthFactor': healthFactor / 10 ** self._DECIMALS
                     }
                     overview.append(aOverview)
         return overview
