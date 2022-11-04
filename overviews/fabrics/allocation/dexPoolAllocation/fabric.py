@@ -1,6 +1,8 @@
 from head.interfaces.fabrics.interface import IConcreteFabric
 from head.interfaces.overview.builder import IInstrumentOverview
 
+from overviews.protocols.uniswap.overview import UniSwapV2DEXPoolAllocationOverview
+
 
 class DEXPoolAllocationOverviewFabric(IConcreteFabric):
 
@@ -17,3 +19,4 @@ class DEXPoolAllocationOverviewFabric(IConcreteFabric):
 
 dexPoolAllocationOverviewFabric = DEXPoolAllocationOverviewFabric()
 
+dexPoolAllocationOverviewFabric.addProduct(protocol='uniswap', overview=UniSwapV2DEXPoolAllocationOverview)
