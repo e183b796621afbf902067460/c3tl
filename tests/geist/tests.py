@@ -64,7 +64,7 @@ class TestGeistLendingPoolOverview(unittest.TestCase):
 class TestGeistLendingPoolAllocationOverview(unittest.TestCase):
 
     _address = '0x9FAD24f572045c7869117160A571B2e50b10d068'
-    _wallet = '0xbDfA4f4492dD7b7Cf211209C4791AF8d52BF5c50'
+    _wallet = '0xbbbb1e5810998581F7977E9F5fa98a3250Cb809f'
 
     _provider = BridgeConfigurator(
         abstractFabric=providerAbstractFabric,
