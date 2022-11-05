@@ -1,4 +1,5 @@
 from web3 import Web3
+from web3.exceptions import ContractLogicError
 
 from defi.protocols.ellipsis.contracts.Pool import EllipsisPoolContract
 from defi.protocols.ellipsis.tokens.RewardsToken import EllipsisRewardsTokenContract
@@ -17,7 +18,7 @@ class EllipsisDEXPoolOverview(CurveDEXPoolOverview, EllipsisPoolContract):
     pass
 
 
-class EllipsisFarmingPoolAllocationOverview(IInstrumentOverview, EllipsisRewardsTokenContract):
+class EllipsisFarmingPoolOverview(IInstrumentOverview, EllipsisRewardsTokenContract):
     _chiefContract: EllipsisLPStakingContract = EllipsisLPStakingContract()
 
     _providers: dict = {
@@ -37,6 +38,26 @@ class EllipsisFarmingPoolAllocationOverview(IInstrumentOverview, EllipsisRewards
             }
     }
 
+    @threadmethod
+    def getOverview(self, *args, **kwargs) -> list:
+        overview: list = list()
+
+        symbol: str = self.symbol()
+        decimals: int = self.decimals()
+        price: float = self.trader.getPrice(major=symbol, vs='USD')
+
+        totalLPLocked: int = self.balanceOf(address=self._chiefAddresses[self.provider]['chief'])
+
+        aOverview: dict = {
+            'symbol': symbol,
+            'reserve': totalLPLocked / 10 ** decimals,
+            'price': price
+            }
+        overview.append(aOverview)
+        return overview
+
+
+class EllipsisFarmingPoolAllocationOverview(EllipsisFarmingPoolOverview):
     @threadmethod
     def getOverview(self, address, *args, **kwargs) -> list:
         overview: list = list()
