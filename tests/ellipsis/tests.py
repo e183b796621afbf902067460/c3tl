@@ -3,7 +3,9 @@ from concurrent.futures import Future
 
 import builtins
 
-from overviews.protocols.ellipsis.overview import EllipsisDEXPoolOverview, EllipsisFarmingPoolAllocationOverview
+from overviews.protocols.ellipsis.overview import (
+    EllipsisDEXPoolOverview, EllipsisFarmingPoolAllocationOverview, EllipsisFarmingPoolOverview
+)
 from overviews.abstracts.fabric import overviewAbstractFabric
 
 from providers.abstracts.fabric import providerAbstractFabric
@@ -33,6 +35,54 @@ class TestEllipsisDEXPoolOverview(unittest.TestCase):
 
     def testInstance(self):
         self.assertIsInstance(self._instance, EllipsisDEXPoolOverview)
+
+    def testProvider(self):
+        self.assertEqual(self._instance.provider, self._provider)
+
+    def testAddress(self):
+        self.assertEqual(self._instance.address, self._address)
+
+    def testHead(self):
+        self.assertEqual(self._instance.trader, headTrader)
+
+    def test_getOverview(self):
+        future = self._instance.getOverview()
+        self.assertIsInstance(future, Future)
+
+        overview = future.result()
+        self.assertIsInstance(overview, list)
+
+        for aOverview in overview:
+            self.assertIsInstance(aOverview, dict)
+
+            self.assertIsInstance(aOverview['symbol'], str)
+            self.assertIsInstance(aOverview['reserve'], (int, float))
+            self.assertIsInstance(aOverview['price'], (int, float))
+        builtins.print('\n', overview)
+
+
+class TestEllipsisFarmingPoolOverview(unittest.TestCase):
+
+    _address = '0xB343F4cDE5e2049857898E800CD385247e21836D'
+
+    _provider = BridgeConfigurator(
+        abstractFabric=providerAbstractFabric,
+        fabricKey='http',
+        productKey='bsc') \
+        .produceProduct()
+
+    _instance = BridgeConfigurator(
+        abstractFabric=overviewAbstractFabric,
+        fabricKey='farming-pool-overview',
+        productKey='ellipsis') \
+        .produceProduct()() \
+        .setAddress(address=_address) \
+        .setProvider(provider=_provider) \
+        .setTrader(trader=headTrader) \
+        .create()
+
+    def testInstance(self):
+        self.assertIsInstance(self._instance, EllipsisFarmingPoolOverview)
 
     def testProvider(self):
         self.assertEqual(self._instance.provider, self._provider)
