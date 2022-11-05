@@ -2,6 +2,7 @@ from head.interfaces.fabrics.interface import IConcreteFabric
 from head.interfaces.overview.builder import IInstrumentOverview
 
 from overviews.protocols.curve.overview import CurveFarmingPoolOverview
+from overviews.protocols.pancakeswap.overview import PancakeSwapFarmingPoolOverview
 
 
 class FarmingPoolOverviewFabric(IConcreteFabric):
@@ -20,3 +21,4 @@ class FarmingPoolOverviewFabric(IConcreteFabric):
 farmingPoolOverviewFabric = FarmingPoolOverviewFabric()
 
 farmingPoolOverviewFabric.addProduct(protocol='curve', overview=CurveFarmingPoolOverview)
+farmingPoolOverviewFabric.addProduct(protocol='pancakeswap', overview=PancakeSwapFarmingPoolOverview)
