@@ -1,13 +1,17 @@
 from web3.exceptions import BadFunctionCallOutput
 from web3 import Web3
 
+from head.bridge.configurator import BridgeConfigurator
 from head.interfaces.overview.builder import IInstrumentOverview
 from head.decorators.threadmethod import threadmethod
 
 from defi.protocols.aave.contracts.LendingPool import AaveLendingPoolV2Contract
+from defi.protocols.aave.contracts.IncentivesController import AaveIncentivesControllerV2Contract
 from defi.protocols.aave.tokens.AToken import ATokenContract
 from defi.protocols.aave.tokens.VariableDebtToken import VariableDebtTokenContract
 from defi.tokens.contracts.ERC20Token import ERC20TokenContract
+
+from providers.abstracts.fabric import providerAbstractFabric
 
 
 class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
@@ -173,3 +177,66 @@ class AaveV2LendingPoolBorrowOverview(IInstrumentOverview, AaveLendingPoolV2Cont
                     }
                     overview.append(aOverview)
         return overview
+
+
+class AaveV2LendingPoolIncentiveOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
+    _controllerContract: AaveIncentivesControllerV2Contract = AaveIncentivesControllerV2Contract()
+
+    _providers: dict = {
+        'eth': {
+            'provider': BridgeConfigurator(
+                abstractFabric=providerAbstractFabric,
+                fabricKey='http',
+                productKey='eth') \
+                .produceProduct()
+        }
+    }
+
+    _controllerAddresses: dict = {
+        _providers['eth']['provider']:
+            {
+                'controller': '0xd784927Ff2f95ba542BfC824c8a8a98F3495f6b5'
+            }
+    }
+    @threadmethod
+    def getOverview(self, address: str, *args, **kwargs):
+        overview: list = list()
+        address: str = Web3.toChecksumAddress(value=address)
+
+        userConfiguration: str = bin(self.getUserConfiguration(address=address)[0])[2:]
+        reservesList: list = self.getReservesList()
+        for i, mask in enumerate(userConfiguration[::-1]):
+            if mask == '1' and i % 2:
+                reserveTokenAddress: str = reservesList[i // 2]
+                try:
+                    reserveData: tuple = self.getReserveData(asset=reserveTokenAddress)
+                except BadFunctionCallOutput:
+                    continue
+
+                incentivesController: AaveIncentivesControllerV2Contract = self._controllerContract \
+                    .setAddress(self._controllerAddresses[self.provider]['controller']) \
+                    .setProvider(provider=self.provider) \
+                    .create()
+
+                aTokenAddress: str = reserveData[7]
+
+                incentivesAmount: int = incentivesController.getRewardsBalance(assets=[aTokenAddress], address=address)
+                if incentivesAmount:
+                    rewardTokenAddress: str = incentivesController.REWARD_TOKEN()
+                    rewardToken: ERC20TokenContract = ERC20TokenContract()\
+                            .setAddress(address=rewardTokenAddress)\
+                            .setProvider(provider=self.provider)\
+                            .create()
+                    rewardDecimals: int = rewardToken.decimals()
+                    rewardSymbol: str = rewardToken.symbol()
+                    rewardPrice: float = self.trader.getPrice(major=rewardSymbol, vs='USD')
+
+                    aOverview: dict = {
+                        'symbol': rewardSymbol,
+                        'amount': incentivesAmount / 10 ** rewardDecimals,
+                        'price': rewardPrice
+                    }
+                    if aOverview not in overview:
+                        overview.append(aOverview)
+        return overview
+
