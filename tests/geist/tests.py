@@ -4,7 +4,8 @@ from concurrent.futures import Future
 import builtins
 
 from overviews.protocols.geist.overview import (
-    GeistLendingPoolOverview, GeistLendingPoolAllocationOverview, GeistLendingPoolBorrowOverview
+    GeistLendingPoolOverview, GeistLendingPoolAllocationOverview, GeistLendingPoolBorrowOverview,
+    GeistLendingPoolIncentiveOverview
 )
 from overviews.abstracts.fabric import overviewAbstractFabric
 
@@ -159,4 +160,53 @@ class TestGeistLendingPoolBorrowOverview(unittest.TestCase):
             self.assertIsInstance(aOverview['amount'], (int, float))
             self.assertIsInstance(aOverview['price'], (int, float))
             self.assertIsInstance(aOverview['healthFactor'], (int, float))
+        builtins.print('\n', overview)
+
+
+class TestGeistLendingPoolIncentiveOverview(unittest.TestCase):
+
+    _address = '0x9FAD24f572045c7869117160A571B2e50b10d068'
+    _wallet = '0x2c362fd5bd900b73c4bf140b7cd6875a56b0e7b6'
+
+    _provider = BridgeConfigurator(
+        abstractFabric=providerAbstractFabric,
+        fabricKey='http',
+        productKey='ftm') \
+        .produceProduct()
+
+    _instance = BridgeConfigurator(
+        abstractFabric=overviewAbstractFabric,
+        fabricKey='lending-pool-incentive-overview',
+        productKey='geist') \
+        .produceProduct()() \
+        .setAddress(address=_address) \
+        .setProvider(provider=_provider) \
+        .setTrader(trader=headTrader) \
+        .create()
+
+    def testInstance(self):
+        self.assertIsInstance(self._instance, GeistLendingPoolIncentiveOverview)
+
+    def testProvider(self):
+        self.assertEqual(self._instance.provider, self._provider)
+
+    def testAddress(self):
+        self.assertEqual(self._instance.address, self._address)
+
+    def testHead(self):
+        self.assertEqual(self._instance.trader, headTrader)
+
+    def test_getOverview(self):
+        future = self._instance.getOverview(address=self._wallet)
+        self.assertIsInstance(future, Future)
+
+        overview = future.result()
+        self.assertIsInstance(overview, list)
+
+        for aOverview in overview:
+            self.assertIsInstance(aOverview, dict)
+
+            self.assertIsInstance(aOverview['symbol'], str)
+            self.assertIsInstance(aOverview['amount'], (int, float))
+            self.assertIsInstance(aOverview['price'], (int, float))
         builtins.print('\n', overview)
