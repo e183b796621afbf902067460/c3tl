@@ -13,6 +13,10 @@ from overviews.fabrics.allocation.lendingPoolAllocation.fabric import lendingPoo
 from overviews.fabrics.allocation.stakingPoolAllocation.fabric import stakingPoolAllocationOverviewFabric
 from overviews.fabrics.allocation.farmingPoolAllocation.fabric import farmingPoolAllocationOverviewFabric
 
+from overviews.fabrics.incentive.farmingPoolIncentive.fabric import farmingPoolIncentiveOverviewFabric
+from overviews.fabrics.incentive.lendingPoolIncentive.fabric import lendingPoolIncentiveOverviewFabric
+from overviews.fabrics.incentive.stakingPoolIncentive.fabric import stakingPoolIncentiveOverviewFabric
+
 
 class OverviewAbstractFabric(IAbstractFabric):
 
@@ -40,3 +44,7 @@ overviewAbstractFabric.addFabric(fabricType='dex-pool-allocation-overview', fabr
 overviewAbstractFabric.addFabric(fabricType='lending-pool-allocation-overview', fabric=lendingPoolAllocationOverviewFabric)
 overviewAbstractFabric.addFabric(fabricType='staking-pool-allocation-overview', fabric=stakingPoolAllocationOverviewFabric)
 overviewAbstractFabric.addFabric(fabricType='farming-pool-allocation-overview', fabric=farmingPoolAllocationOverviewFabric)
+
+overviewAbstractFabric.addFabric(fabricType='farming-pool-incentive-overview', fabric=farmingPoolIncentiveOverviewFabric)
+overviewAbstractFabric.addFabric(fabricType='lending-pool-incentive-overview', fabric=lendingPoolIncentiveOverviewFabric)
+overviewAbstractFabric.addFabric(fabricType='staking-pool-incentive-overview', fabric=stakingPoolIncentiveOverviewFabric)
