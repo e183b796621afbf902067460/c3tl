@@ -198,6 +198,7 @@ class AaveV2LendingPoolIncentiveOverview(IInstrumentOverview, AaveLendingPoolV2C
                 'controller': '0xd784927Ff2f95ba542BfC824c8a8a98F3495f6b5'
             }
     }
+
     @threadmethod
     def getOverview(self, address: str, *args, **kwargs):
         overview: list = list()
