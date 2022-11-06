@@ -3,11 +3,15 @@ from web3 import Web3
 
 from head.interfaces.overview.builder import IInstrumentOverview
 from head.decorators.threadmethod import threadmethod
+from head.bridge.configurator import BridgeConfigurator
 
 from overviews.protocols.aave.overview import AaveV2LendingPoolOverview
 
 from defi.protocols.nereus.contracts.LendingPool import NereusLendingPoolContract
+from defi.protocols.nereus.contracts.ChefIncentivesController import NereusChiefIncentivesControllerContract
 from defi.tokens.contracts.ERC20Token import ERC20TokenContract
+
+from providers.abstracts.fabric import providerAbstractFabric
 
 
 class NereusLendingPoolOverview(AaveV2LendingPoolOverview, NereusLendingPoolContract):
@@ -114,4 +118,75 @@ class NereusLendingPoolBorrowOverview(IInstrumentOverview, NereusLendingPoolCont
                         'healthFactor': healthFactor / 10 ** self._DECIMALS
                     }
                     overview.append(aOverview)
+        return overview
+
+
+class NereusLendingPoolIncentiveOverview(IInstrumentOverview, NereusLendingPoolContract):
+    _controllerContract: NereusChiefIncentivesControllerContract = NereusChiefIncentivesControllerContract()
+
+    _providers: dict = {
+        'avax': {
+            'provider': BridgeConfigurator(
+                abstractFabric=providerAbstractFabric,
+                fabricKey='http',
+                productKey='avax') \
+                .produceProduct()
+        }
+    }
+
+    _controllerAddresses: dict = {
+        _providers['avax']['provider']:
+            {
+                'controller': '0xa57a8C5dd29bd9CC605027E62935db2cB5485378'
+            }
+    }
+    _nereusAddresses: dict = {
+        _providers['avax']['provider']:
+            {
+                'wirex': '0xfcDe4A87b8b6FA58326BB462882f1778158B02F1'
+            }
+    }
+
+    @threadmethod
+    def getOverview(self, address: str, *args, **kwargs):
+        overview: list = list()
+        address: str = Web3.toChecksumAddress(value=address)
+
+        userConfiguration: str = bin(self.getUserConfiguration(address=address)[0][0])[2:]
+        reservesList: list = self.getReservesList()
+
+        totalIncentives: int = 0
+        for i, mask in enumerate(userConfiguration[::-1]):
+            if mask == '1' and i % 2:
+                reserveTokenAddress: str = reservesList[i // 2]
+                try:
+                    reserveData: tuple = self.getReserveData(asset=reserveTokenAddress)
+                except BadFunctionCallOutput:
+                    continue
+
+                incentivesController: NereusChiefIncentivesControllerContract = self._controllerContract \
+                    .setAddress(self._controllerAddresses[self.provider]['controller']) \
+                    .setProvider(provider=self.provider) \
+                    .create()
+
+                gTokenAddress: str = reserveData[7]
+                incentivesAmount: list = incentivesController.claimableReward(tokens=[gTokenAddress], address=address)[
+                    0]
+                totalIncentives += incentivesAmount
+
+        if totalIncentives:
+            geist: ERC20TokenContract = ERC20TokenContract() \
+                .setAddress(address=self._nereusAddresses[self.provider]['wirex']) \
+                .setProvider(provider=self.provider) \
+                .create()
+            geistSymbol: str = geist.symbol()
+            geistDecimals: int = geist.decimals()
+            geistPrice: float = self.trader.getPrice(major=geistSymbol, vs='USD')
+
+            aOverview: dict = {
+                'symbol': geistSymbol,
+                'amount': totalIncentives / 10 ** geistDecimals,
+                'price': geistPrice
+            }
+            overview.append(aOverview)
         return overview
