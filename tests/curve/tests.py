@@ -12,6 +12,7 @@ from overviews.abstracts.fabric import overviewAbstractFabric
 from providers.abstracts.fabric import providerAbstractFabric
 from traders.head.trader import headTrader
 from head.bridge.configurator import BridgeConfigurator
+# https://curve.readthedocs.io/ref-addresses.html
 
 
 class TestCurveDEXPoolOverview(unittest.TestCase):
