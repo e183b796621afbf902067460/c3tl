@@ -3,6 +3,7 @@ from head.interfaces.overview.builder import IInstrumentOverview
 
 from overviews.protocols.aave.overview import AaveV2LendingPoolIncentiveOverview
 from overviews.protocols.geist.overview import GeistLendingPoolIncentiveOverview
+from overviews.protocols.sturdy.overview import SturdyLendingPoolIncentiveOverview
 
 
 class LendingPoolIncentiveOverviewFabric(IConcreteFabric):
@@ -22,3 +23,4 @@ lendingPoolIncentiveOverviewFabric = LendingPoolIncentiveOverviewFabric()
 
 lendingPoolIncentiveOverviewFabric.addProduct(protocol='aave', overview=AaveV2LendingPoolIncentiveOverview)
 lendingPoolIncentiveOverviewFabric.addProduct(protocol='geist', overview=GeistLendingPoolIncentiveOverview)
+lendingPoolIncentiveOverviewFabric.addProduct(protocol='sturdy', overview=SturdyLendingPoolIncentiveOverview)
