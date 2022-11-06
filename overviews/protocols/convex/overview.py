@@ -116,7 +116,7 @@ class ConvexStakingPoolIncentiveOverview(IInstrumentOverview, ConvexBaseRewardPo
             return cvxOverview
         return dict()
 
-    # @threadmethod
+    @threadmethod
     def getOverview(self, address: str, *args, **kwargs) -> list:
         overview: list = list()
 
