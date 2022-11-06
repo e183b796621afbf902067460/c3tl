@@ -1,6 +1,8 @@
 from head.interfaces.fabrics.interface import IConcreteFabric
 from head.interfaces.overview.builder import IInstrumentOverview
 
+from overviews.protocols.convex.overview import ConvexStakingPoolIncentiveOverview
+
 
 class StakingPoolIncentiveOverviewFabric(IConcreteFabric):
 
@@ -16,3 +18,5 @@ class StakingPoolIncentiveOverviewFabric(IConcreteFabric):
 
 
 stakingPoolIncentiveOverviewFabric = StakingPoolIncentiveOverviewFabric()
+
+stakingPoolIncentiveOverviewFabric.addProduct(protocol='convex', overview=ConvexStakingPoolIncentiveOverview)
