@@ -11,15 +11,15 @@ from head.bridge.configurator import BridgeConfigurator
 from providers.abstracts.fabric import providerAbstractFabric
 
 
-class SturdyLendingPoolOverview(AaveV2LendingPoolOverview, SturdyLendingPoolContract):
+class SturdyLendingPoolOverview(SturdyLendingPoolContract, AaveV2LendingPoolOverview):
     pass
 
 
-class SturdyLendingPoolAllocationOverview(AaveV2LendingPoolAllocationOverview, SturdyLendingPoolContract):
+class SturdyLendingPoolAllocationOverview(SturdyLendingPoolContract, AaveV2LendingPoolAllocationOverview):
     pass
 
 
-class SturdyLendingPoolBorrowOverview(AaveV2LendingPoolBorrowOverview, SturdyLendingPoolContract):
+class SturdyLendingPoolBorrowOverview(SturdyLendingPoolContract, AaveV2LendingPoolBorrowOverview):
     pass
 
 
