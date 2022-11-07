@@ -157,3 +157,43 @@ class PancakeSwapFarmingPoolAllocationOverview(PancakeSwapFarmingPoolOverview):
         overview.append(t0Overview)
         overview.append(t1Overview)
         return overview
+
+
+class PancakeSwapFarmingPoolIncentiveOverview(PancakeSwapFarmingPoolOverview):
+    @threadmethod
+    def getOverview(self, address, *args, **kwargs) -> list:
+        overview: list = list()
+
+        address: str = Web3.toChecksumAddress(address)
+        chief: PancakeSwapMasterChefV2Contract = self._chiefContract \
+            .setAddress(address=self._chiefAddresses[self.provider]['chief']) \
+            .setProvider(provider=self.provider) \
+            .create()
+
+        for i in range(chief.poolLength()):
+            lp: str = chief.lpToken(i=i)
+            if lp.lower() == self.address.lower():
+                pid: int = i
+                break
+        else:
+            raise ValueError()
+
+        cake: ERC20TokenContract = ERC20TokenContract()\
+                .setAddress(address=chief.CAKE())\
+                .setProvider(provider=self.provider)\
+                .create()
+
+        cakeSymbol: str = cake.symbol()
+        cakeDecimals: int = cake.decimals()
+        cakePrice: float = self.trader.getPrice(major=cakeSymbol, vs='USD')
+
+        cakes: float = chief.pendingCake(_pid=pid, _user=address) / 10 ** cakeDecimals
+
+        incentiveOverview: dict = {
+            'symbol': cakeSymbol,
+            'amount': cakes,
+            'price': cakePrice
+        }
+
+        overview.append(incentiveOverview)
+        return overview

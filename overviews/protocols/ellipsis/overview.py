@@ -1,5 +1,4 @@
 from web3 import Web3
-from web3.exceptions import ContractLogicError
 
 from defi.protocols.ellipsis.contracts.Pool import EllipsisPoolContract
 from defi.protocols.ellipsis.tokens.RewardsToken import EllipsisRewardsTokenContract
