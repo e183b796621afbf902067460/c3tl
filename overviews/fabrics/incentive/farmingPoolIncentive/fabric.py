@@ -2,6 +2,7 @@ from head.interfaces.fabrics.interface import IConcreteFabric
 from head.interfaces.overview.builder import IInstrumentOverview
 
 from overviews.protocols.curve.overview import CurveFarmingPoolIncentiveOverview
+from overviews.protocols.ellipsis.overview import EllipsisFarmingPoolIncentiveOverview
 
 
 class FarmingPoolIncentiveOverviewFabric(IConcreteFabric):
@@ -20,3 +21,4 @@ class FarmingPoolIncentiveOverviewFabric(IConcreteFabric):
 farmingPoolIncentiveOverviewFabric = FarmingPoolIncentiveOverviewFabric()
 
 farmingPoolIncentiveOverviewFabric.addProduct(protocol='curve', overview=CurveFarmingPoolIncentiveOverview)
+farmingPoolIncentiveOverviewFabric.addProduct(protocol='ellipsis', overview=EllipsisFarmingPoolIncentiveOverview)

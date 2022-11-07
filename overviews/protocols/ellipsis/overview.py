@@ -4,6 +4,7 @@ from web3.exceptions import ContractLogicError
 from defi.protocols.ellipsis.contracts.Pool import EllipsisPoolContract
 from defi.protocols.ellipsis.tokens.RewardsToken import EllipsisRewardsTokenContract
 from defi.protocols.ellipsis.contracts.EllipsisLPStaking import EllipsisLPStakingContract
+from defi.tokens.contracts.ERC20Token import ERC20TokenContract
 
 from head.interfaces.overview.builder import IInstrumentOverview
 from head.decorators.threadmethod import threadmethod
@@ -79,4 +80,34 @@ class EllipsisFarmingPoolAllocationOverview(EllipsisFarmingPoolOverview):
             'price': price
         }
         overview.append(allocationOverview)
+        return overview
+
+
+class EllipsisFarmingPoolIncentiveOverview(EllipsisFarmingPoolOverview):
+    @threadmethod
+    def getOverview(self, address, *args, **kwargs) -> list:
+        overview: list = list()
+
+        address: str = Web3.toChecksumAddress(address)
+        chief: EllipsisLPStakingContract = self._chiefContract\
+                .setAddress(address=self._chiefAddresses[self.provider]['chief'])\
+                .setProvider(provider=self.provider)\
+                .create()
+
+        amount: int = chief.claimableReward(tokens=[self.address], address=address)[0]
+
+        rewardToken: ERC20TokenContract = ERC20TokenContract() \
+            .setAddress(address=chief.rewardToken()) \
+            .setProvider(provider=self.provider) \
+            .create()
+        rewardDecimals: int = rewardToken.decimals()
+        rewardSymbol: str = rewardToken.symbol()
+        rewardPrice: float = self.trader.getPrice(major=rewardSymbol, vs='USD')
+
+        incentiveOverview: dict = {
+            'symbol': rewardSymbol,
+            'amount': amount / 10 ** rewardDecimals,
+            'price': rewardPrice
+        }
+        overview.append(incentiveOverview)
         return overview
