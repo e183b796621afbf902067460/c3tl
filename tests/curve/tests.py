@@ -195,16 +195,15 @@ class TestCurveFarmingPoolIncentiveOverview(unittest.TestCase):
 
     def test_getOverview(self):
         future = self._instance.getOverview(address=self._wallet)
-        print(future)
-        # self.assertIsInstance(future, Future)
-        #
-        # overview = future.result()
-        # self.assertIsInstance(overview, list)
-        #
-        # for aOverview in overview:
-        #     self.assertIsInstance(aOverview, dict)
-        #
-        #     self.assertIsInstance(aOverview['symbol'], str)
-        #     self.assertIsInstance(aOverview['amount'], (int, float))
-        #     self.assertIsInstance(aOverview['price'], (int, float))
-        # builtins.print('\n', overview)
+        self.assertIsInstance(future, Future)
+
+        overview = future.result()
+        self.assertIsInstance(overview, list)
+
+        for aOverview in overview:
+            self.assertIsInstance(aOverview, dict)
+
+            self.assertIsInstance(aOverview['symbol'], str)
+            self.assertIsInstance(aOverview['amount'], (int, float))
+            self.assertIsInstance(aOverview['price'], (int, float))
+        builtins.print('\n', overview)
