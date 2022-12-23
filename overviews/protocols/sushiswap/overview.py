@@ -75,9 +75,9 @@ class SushiSwapFarmingPoolIncentiveOverview(SushiSwapFarmingPoolAllocationOvervi
         sushies: float = chief.pendingSushi(_pid=pid, _user=address) / 10 ** sushiDecimals
 
         incentiveOverview: dict = {
-            'symbol': sushiSymbol,
-            'amount': sushies,
-            'price': sushiPrice
+            'pit_token_symbol': sushiSymbol,
+            'pit_token_amount': sushies,
+            'pit_token_price': sushiPrice
         }
 
         overview.append(incentiveOverview)

@@ -35,9 +35,9 @@ class CurveDEXPoolOverview(IInstrumentOverview, CurvePoolContract):
             price: float = self.trader.getPrice(major=symbol, vs='USD')
 
             aOverview: dict = {
-                'symbol': symbol,
-                'reserve': reserve,
-                'price': price
+                'pit_token_symbol': symbol,
+                'pit_token_reserve': reserve,
+                'pit_token_price': price
             }
             overview.append(aOverview)
             i += 1
@@ -63,9 +63,9 @@ class CurveFarmingPoolOverview(IInstrumentOverview, CurveGaugeContract):
         price: float = self.trader.getPrice(major=symbol, vs='USD')
 
         aOverview: dict = {
-            'symbol': symbol,
-            'reserve': reserve,
-            'price': price
+            'pit_token_symbol': symbol,
+            'pit_token_reserve': reserve,
+            'pit_token_price': price
         }
         overview.append(aOverview)
 
@@ -92,9 +92,9 @@ class CurveFarmingPoolAllocationOverview(IInstrumentOverview, CurveGaugeContract
         balanceOf: int = self.balanceOf(address=address)
 
         allocationOverview: dict = {
-            'symbol': symbol,
-            'amount': balanceOf / 10 ** decimals,
-            'price': price
+            'pit_token_symbol': symbol,
+            'pit_token_amount': balanceOf / 10 ** decimals,
+            'pit_token_price': price
         }
         overview.append(allocationOverview)
         return overview
@@ -122,9 +122,9 @@ class CurveFarmingPoolIncentiveOverview(IInstrumentOverview, CurveLiquidityGauge
         crvIncentives: int = self.claimable_tokens(address=address)
 
         crvOverview: dict = {
-            'symbol': crvSymbol,
-            'amount': crvIncentives / 10 ** crvDecimals,
-            'price': crvPrice
+            'pit_token_symbol': crvSymbol,
+            'pit_token_amount': crvIncentives / 10 ** crvDecimals,
+            'pit_token_price': crvPrice
         }
         overview.append(crvOverview)
 
@@ -153,9 +153,9 @@ class CurveFarmingPoolIncentiveOverview(IInstrumentOverview, CurveLiquidityGauge
             incentives: float = self.balanceOf(address=address) / 10 ** gaugeDecimals * (rewardIntegral - rewardIntegralFor) / 10 ** gaugeDecimals if rewardIntegralFor < rewardIntegral else 0
 
             tOverview: dict = {
-                'symbol': symbol,
-                'amount': incentives / 10 ** decimals,
-                'price': price
+                'pit_token_symbol': symbol,
+                'pit_token_amount': incentives / 10 ** decimals,
+                'pit_token_price': price
             }
             overview.append(tOverview)
             i += 1

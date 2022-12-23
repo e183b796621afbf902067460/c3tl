@@ -49,9 +49,9 @@ class EllipsisFarmingPoolOverview(IInstrumentOverview, EllipsisRewardsTokenContr
         totalLPLocked: int = self.balanceOf(address=self._chiefAddresses[self.provider]['chief'])
 
         aOverview: dict = {
-            'symbol': symbol,
-            'reserve': totalLPLocked / 10 ** decimals,
-            'price': price
+            'pit_token_symbol': symbol,
+            'pit_token_reserve': totalLPLocked / 10 ** decimals,
+            'pit_token_price': price
             }
         overview.append(aOverview)
         return overview
@@ -74,9 +74,9 @@ class EllipsisFarmingPoolAllocationOverview(EllipsisFarmingPoolOverview):
         price: float = self.trader.getPrice(major=symbol, vs='USD')
 
         allocationOverview: dict = {
-            'symbol': symbol,
-            'amount': amount / 10 ** decimals,
-            'price': price
+            'pit_token_symbol': symbol,
+            'pit_token_amount': amount / 10 ** decimals,
+            'pit_token_price': price
         }
         overview.append(allocationOverview)
         return overview
@@ -104,9 +104,9 @@ class EllipsisFarmingPoolIncentiveOverview(EllipsisFarmingPoolOverview):
         rewardPrice: float = self.trader.getPrice(major=rewardSymbol, vs='USD')
 
         incentiveOverview: dict = {
-            'symbol': rewardSymbol,
-            'amount': amount / 10 ** rewardDecimals,
-            'price': rewardPrice
+            'pit_token_symbol': rewardSymbol,
+            'pit_token_amount': amount / 10 ** rewardDecimals,
+            'pit_token_price': rewardPrice
         }
         overview.append(incentiveOverview)
         return overview

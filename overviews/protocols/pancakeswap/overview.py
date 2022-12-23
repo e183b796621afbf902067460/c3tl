@@ -75,15 +75,15 @@ class PancakeSwapFarmingPoolOverview(IInstrumentOverview, PancakePairContract):
         t1Price: float = self.trader.getPrice(major=t1Symbol, vs='USD')
 
         t0Overview: dict = {
-            'symbol': t0Symbol,
-            'reserve': t0Locked,
-            'price': t0Price
+            'pit_token_symbol': t0Symbol,
+            'pit_token_reserve': t0Locked,
+            'pit_token_price': t0Price
         }
 
         t1Overview: dict = {
-            'symbol': t1Symbol,
-            'reserve': t1Locked,
-            'price': t1Price
+            'pit_token_symbol': t1Symbol,
+            'pit_token_reserve': t1Locked,
+            'pit_token_price': t1Price
         }
 
         overview.append(t0Overview)
@@ -143,15 +143,15 @@ class PancakeSwapFarmingPoolAllocationOverview(PancakeSwapFarmingPoolOverview):
         t1Price: float = self.trader.getPrice(major=t1Symbol, vs='USD')
 
         t0Overview: dict = {
-            'symbol': t0Symbol,
-            'amount': t0Amount,
-            'price': t0Price
+            'pit_token_symbol': t0Symbol,
+            'pit_token_amount': t0Amount,
+            'pit_token_price': t0Price
         }
 
         t1Overview: dict = {
-            'symbol': t1Symbol,
-            'amount': t1Amount,
-            'price': t1Price
+            'pit_token_symbol': t1Symbol,
+            'pit_token_amount': t1Amount,
+            'pit_token_price': t1Price
         }
 
         overview.append(t0Overview)
@@ -190,9 +190,9 @@ class PancakeSwapFarmingPoolIncentiveOverview(PancakeSwapFarmingPoolOverview):
         cakes: float = chief.pendingCake(_pid=pid, _user=address) / 10 ** cakeDecimals
 
         incentiveOverview: dict = {
-            'symbol': cakeSymbol,
-            'amount': cakes,
-            'price': cakePrice
+            'pit_token_symbol': cakeSymbol,
+            'pit_token_amount': cakes,
+            'pit_token_price': cakePrice
         }
 
         overview.append(incentiveOverview)

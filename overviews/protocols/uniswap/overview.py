@@ -37,14 +37,14 @@ class UniSwapV2DEXPoolOverview(IInstrumentOverview, UniSwapV2PairContract):
         t1Price: float = self.trader.getPrice(major=t1Symbol, vs='USD')
 
         t0Overview: dict = {
-            'symbol': t0Symbol,
-            'reserve': t0Reserve,
-            'price': t0Price
+            'pit_token_symbol': t0Symbol,
+            'pit_token_reserve': t0Reserve,
+            'pit_token_price': t0Price
         }
         t1Overview: dict = {
-            'symbol': t1Symbol,
-            'reserve': t1Reserve,
-            'price': t1Price
+            'pit_token_symbol': t1Symbol,
+            'pit_token_reserve': t1Reserve,
+            'pit_token_price': t1Price
         }
 
         overview.append(t0Overview)
@@ -93,15 +93,15 @@ class UniSwapV2DEXPoolAllocationOverview(IInstrumentOverview, UniSwapV2PairContr
         t1Price: float = self.trader.getPrice(major=t1Symbol, vs='USD')
 
         t0Overview: dict = {
-            'symbol': t0Symbol,
-            'amount': t0Amount,
-            'price': t0Price
+            'pit_token_symbol': t0Symbol,
+            'pit_token_amount': t0Amount,
+            'pit_token_price': t0Price
         }
 
         t1Overview: dict = {
-            'symbol': t1Symbol,
-            'amount': t1Amount,
-            'price': t1Price
+            'pit_token_symbol': t1Symbol,
+            'pit_token_amount': t1Amount,
+            'pit_token_price': t1Price
         }
 
         overview.append(t0Overview)

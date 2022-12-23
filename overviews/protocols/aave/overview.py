@@ -64,12 +64,12 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
             tPrice: float = self.trader.getPrice(major=tSymbol, vs='USD')
 
             aOverview: dict = {
-                'symbol': tSymbol,
-                'reserve': totalReserveSize,
-                'borrow': totalBorrowSize,
-                'price': tPrice,
-                'depositAPY': depositAPY * 100,
-                'borrowAPY': variableBorrowAPY * 100
+                'pit_token_symbol': tSymbol,
+                'pit_token_reserve_size': totalReserveSize,
+                'pit_token_borrow_size': totalBorrowSize,
+                'pit_token_price': tPrice,
+                'pit_token_deposit_apy': depositAPY * 100,
+                'pit_token_borrow_apy': variableBorrowAPY * 100
             }
             overview.append(aOverview)
         return overview
@@ -111,9 +111,9 @@ class AaveV2LendingPoolAllocationOverview(IInstrumentOverview, AaveLendingPoolV2
                     collateral: int = aToken.balanceOf(address=address) / 10 ** aTokenDecimals
 
                     aOverview: dict = {
-                        'symbol': reserveTokenSymbol,
-                        'amount': collateral,
-                        'price': reserveTokenPrice
+                        'pit_token_symbol': reserveTokenSymbol,
+                        'pit_token_amount': collateral,
+                        'pit_token_price': reserveTokenPrice
                     }
                     overview.append(aOverview)
         return overview
@@ -170,10 +170,10 @@ class AaveV2LendingPoolBorrowOverview(IInstrumentOverview, AaveLendingPoolV2Cont
                             variableDebtToken.balanceOf(address=address) / 10 ** variableDebtTokenDecimals
 
                     aOverview: dict = {
-                        'symbol': reserveTokenSymbol,
-                        'amount': debt,
-                        'price': reserveTokenPrice,
-                        'healthFactor': healthFactor / 10 ** self._DECIMALS
+                        'pit_token_symbol': reserveTokenSymbol,
+                        'pit_token_amount': debt,
+                        'pit_token_price': reserveTokenPrice,
+                        'pit_health_factor': healthFactor / 10 ** self._DECIMALS
                     }
                     overview.append(aOverview)
         return overview
@@ -233,9 +233,9 @@ class AaveV2LendingPoolIncentiveOverview(IInstrumentOverview, AaveLendingPoolV2C
                     rewardPrice: float = self.trader.getPrice(major=rewardSymbol, vs='USD')
 
                     aOverview: dict = {
-                        'symbol': rewardSymbol,
-                        'amount': incentivesAmount / 10 ** rewardDecimals,
-                        'price': rewardPrice
+                        'pit_token_symbol': rewardSymbol,
+                        'pit_token_amount': incentivesAmount / 10 ** rewardDecimals,
+                        'pit_token_price': rewardPrice
                     }
                     if aOverview not in overview:
                         overview.append(aOverview)

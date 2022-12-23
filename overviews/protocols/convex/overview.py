@@ -30,9 +30,9 @@ class ConvexStakingPoolOverview(IInstrumentOverview, ConvexBaseRewardPoolContrac
         price: float = self.trader.getPrice(major=symbol, vs='USD')
 
         aOverview: dict = {
-            'symbol': symbol,
-            'reserve': reserve,
-            'price': price
+            'pit_token_symbol': symbol,
+            'pit_token_reserve': reserve,
+            'pit_token_price': price
         }
         overview.append(aOverview)
 
@@ -59,9 +59,9 @@ class ConvexStakingPoolAllocationOverview(IInstrumentOverview, ConvexBaseRewardP
         balanceOf: int = self.balanceOf(address=address)
 
         allocationOverview: dict = {
-            'symbol': symbol,
-            'amount': balanceOf / 10 ** decimals,
-            'price': price
+            'pit_token_symbol': symbol,
+            'pit_token_amount': balanceOf / 10 ** decimals,
+            'pit_token_price': price
         }
         overview.append(allocationOverview)
         return overview
@@ -96,9 +96,9 @@ class ConvexStakingPoolIncentiveOverview(IInstrumentOverview, ConvexBaseRewardPo
         cvxDecimals: int = cvx.decimals()
         cvxPrice: float = self.trader.getPrice(major=cvxSymbol, vs='USD')
 
-        cvxMaxSupply: int = cvx.maxSupply() / 10 ** cvxDecimals  # 100m
-        cvxTotalCliffs: int = cvx.totalCliffs()  # 1k
-        cvxCliffSize: int = cvxMaxSupply // cvxTotalCliffs  # 100k
+        cvxMaxSupply: int = cvx.maxSupply() / 10 ** cvxDecimals
+        cvxTotalCliffs: int = cvx.totalCliffs()
+        cvxCliffSize: int = cvxMaxSupply // cvxTotalCliffs
 
         cvxTotalSupply: int = cvx.totalSupply() / 10 ** cvxDecimals
         currentCliff: float = cvxTotalSupply / cvxCliffSize
@@ -109,9 +109,9 @@ class ConvexStakingPoolIncentiveOverview(IInstrumentOverview, ConvexBaseRewardPo
             amount: float = cvxMaxSupply - cvxTotalSupply\
 
             cvxOverview: dict = {
-                'symbol': cvxSymbol,
-                'amount': min(cvx, amount),
-                'price': cvxPrice
+                'pit_token_symbol': cvxSymbol,
+                'pit_token_amount': min(cvx, amount),
+                'pit_token_price': cvxPrice
             }
             return cvxOverview
         return dict()
@@ -134,9 +134,9 @@ class ConvexStakingPoolIncentiveOverview(IInstrumentOverview, ConvexBaseRewardPo
         balanceOf: int = self.earned(address=address) / 10 ** crvDecimals
 
         crvOverview: dict = {
-            'symbol': crvSymbol,
-            'amount': balanceOf,
-            'price': crvPrice
+            'pit_token_symbol': crvSymbol,
+            'pit_token_amount': balanceOf,
+            'pit_token_price': crvPrice
         }
         overview.append(crvOverview)
 
@@ -162,9 +162,9 @@ class ConvexStakingPoolIncentiveOverview(IInstrumentOverview, ConvexBaseRewardPo
             balanceOf: int = gauge.earned(address=address) / 10 ** extraDecimals
 
             extraOverview: dict = {
-                'symbol': extraSymbol,
-                'amount': balanceOf,
-                'price': extraPrice
+                'pit_token_symbol': extraSymbol,
+                'pit_token_amount': balanceOf,
+                'pit_token_price': extraPrice
             }
             overview.append(extraOverview)
         return overview

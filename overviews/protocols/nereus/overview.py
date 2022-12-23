@@ -53,9 +53,9 @@ class NereusLendingPoolAllocationOverview(IInstrumentOverview, NereusLendingPool
                     collateral: int = aToken.balanceOf(address=address) / 10 ** aTokenDecimals
 
                     aOverview: dict = {
-                        'symbol': reserveTokenSymbol,
-                        'amount': collateral,
-                        'price': reserveTokenPrice
+                        'pit_token_symbol': reserveTokenSymbol,
+                        'pit_token_amount': collateral,
+                        'pit_token_price': reserveTokenPrice
                     }
                     overview.append(aOverview)
         return overview
@@ -112,10 +112,10 @@ class NereusLendingPoolBorrowOverview(IInstrumentOverview, NereusLendingPoolCont
                                 variableDebtToken.balanceOf(address=address) / 10 ** variableDebtTokenDecimals
 
                     aOverview: dict = {
-                        'symbol': reserveTokenSymbol,
-                        'amount': debt,
-                        'price': reserveTokenPrice,
-                        'healthFactor': healthFactor / 10 ** self._DECIMALS
+                        'pit_token_symbol': reserveTokenSymbol,
+                        'pit_token_amount': debt,
+                        'pit_token_price': reserveTokenPrice,
+                        'pit_health_factor': healthFactor / 10 ** self._DECIMALS
                     }
                     overview.append(aOverview)
         return overview
@@ -170,8 +170,7 @@ class NereusLendingPoolIncentiveOverview(IInstrumentOverview, NereusLendingPoolC
                     .create()
 
                 gTokenAddress: str = reserveData[7]
-                incentivesAmount: list = incentivesController.claimableReward(tokens=[gTokenAddress], address=address)[
-                    0]
+                incentivesAmount: list = incentivesController.claimableReward(tokens=[gTokenAddress], address=address)[0]
                 totalIncentives += incentivesAmount
 
         if totalIncentives:
@@ -184,9 +183,9 @@ class NereusLendingPoolIncentiveOverview(IInstrumentOverview, NereusLendingPoolC
             geistPrice: float = self.trader.getPrice(major=geistSymbol, vs='USD')
 
             aOverview: dict = {
-                'symbol': geistSymbol,
-                'amount': totalIncentives / 10 ** geistDecimals,
-                'price': geistPrice
+                'pit_token_symbol': geistSymbol,
+                'pit_token_amount': totalIncentives / 10 ** geistDecimals,
+                'pit_token_price': geistPrice
             }
             overview.append(aOverview)
         return overview
