@@ -56,9 +56,9 @@ class TestPancakeSwapDEXPoolOverview(unittest.TestCase):
         for aOverview in overview:
             self.assertIsInstance(aOverview, dict)
 
-            self.assertIsInstance(aOverview['symbol'], str)
-            self.assertIsInstance(aOverview['reserve'], (int, float))
-            self.assertIsInstance(aOverview['price'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_symbol'], str)
+            self.assertIsInstance(aOverview['pit_token_reserve'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)
 
 
@@ -104,9 +104,9 @@ class TestPancakeSwapFarmingPoolOverview(unittest.TestCase):
         for aOverview in overview:
             self.assertIsInstance(aOverview, dict)
 
-            self.assertIsInstance(aOverview['symbol'], str)
-            self.assertIsInstance(aOverview['reserve'], (int, float))
-            self.assertIsInstance(aOverview['price'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_symbol'], str)
+            self.assertIsInstance(aOverview['pit_token_reserve'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)
 
 
@@ -153,9 +153,9 @@ class TestPancakeSwapFarmingPoolAllocationOverview(unittest.TestCase):
         for aOverview in overview:
             self.assertIsInstance(aOverview, dict)
 
-            self.assertIsInstance(aOverview['symbol'], str)
-            self.assertIsInstance(aOverview['amount'], (int, float))
-            self.assertIsInstance(aOverview['price'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_symbol'], str)
+            self.assertIsInstance(aOverview['pit_token_amount'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)
 
 
@@ -202,7 +202,7 @@ class TestPancakeSwapFarmingPoolIncentiveOverview(unittest.TestCase):
         for aOverview in overview:
             self.assertIsInstance(aOverview, dict)
 
-            self.assertIsInstance(aOverview['symbol'], str)
-            self.assertIsInstance(aOverview['amount'], (int, float))
-            self.assertIsInstance(aOverview['price'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_symbol'], str)
+            self.assertIsInstance(aOverview['pit_token_amount'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)

@@ -68,8 +68,8 @@ class AaveV2LendingPoolOverview(IInstrumentOverview, AaveLendingPoolV2Contract):
                 'pit_token_reserve_size': totalReserveSize,
                 'pit_token_borrow_size': totalBorrowSize,
                 'pit_token_price': tPrice,
-                'pit_token_deposit_apy': depositAPY * 100,
-                'pit_token_borrow_apy': variableBorrowAPY * 100
+                'pit_token_deposit_apy': depositAPY,
+                'pit_token_borrow_apy': variableBorrowAPY
             }
             overview.append(aOverview)
         return overview

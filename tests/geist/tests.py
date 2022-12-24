@@ -56,11 +56,12 @@ class TestGeistLendingPoolOverview(unittest.TestCase):
         for aOverview in overview:
             self.assertIsInstance(aOverview, dict)
 
-            self.assertIsInstance(aOverview['symbol'], str)
-            self.assertIsInstance(aOverview['reserve'], (int, float))
-            self.assertIsInstance(aOverview['price'], (int, float))
-            self.assertIsInstance(aOverview['depositAPY'], (int, float))
-            self.assertIsInstance(aOverview['borrowAPY'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_symbol'], str)
+            self.assertIsInstance(aOverview['pit_token_reserve_size'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_borrow_size'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_price'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_deposit_apy'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_borrow_apy'], (int, float))
         builtins.print('\n', overview)
 
 
@@ -107,9 +108,9 @@ class TestGeistLendingPoolAllocationOverview(unittest.TestCase):
         for aOverview in overview:
             self.assertIsInstance(aOverview, dict)
 
-            self.assertIsInstance(aOverview['symbol'], str)
-            self.assertIsInstance(aOverview['amount'], (int, float))
-            self.assertIsInstance(aOverview['price'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_symbol'], str)
+            self.assertIsInstance(aOverview['pit_token_amount'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)
 
 
@@ -156,10 +157,10 @@ class TestGeistLendingPoolBorrowOverview(unittest.TestCase):
         for aOverview in overview:
             self.assertIsInstance(aOverview, dict)
 
-            self.assertIsInstance(aOverview['symbol'], str)
-            self.assertIsInstance(aOverview['amount'], (int, float))
-            self.assertIsInstance(aOverview['price'], (int, float))
-            self.assertIsInstance(aOverview['healthFactor'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_symbol'], str)
+            self.assertIsInstance(aOverview['pit_token_amount'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_price'], (int, float))
+            self.assertIsInstance(aOverview['pit_health_factor'], (int, float))
         builtins.print('\n', overview)
 
 
@@ -206,7 +207,7 @@ class TestGeistLendingPoolIncentiveOverview(unittest.TestCase):
         for aOverview in overview:
             self.assertIsInstance(aOverview, dict)
 
-            self.assertIsInstance(aOverview['symbol'], str)
-            self.assertIsInstance(aOverview['amount'], (int, float))
-            self.assertIsInstance(aOverview['price'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_symbol'], str)
+            self.assertIsInstance(aOverview['pit_token_amount'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)
