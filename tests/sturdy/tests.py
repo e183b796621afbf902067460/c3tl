@@ -109,7 +109,7 @@ class TestSturdyLendingPoolAllocationOverview(unittest.TestCase):
             self.assertIsInstance(aOverview, dict)
 
             self.assertIsInstance(aOverview['pit_token_symbol'], str)
-            self.assertIsInstance(aOverview['pit_token_amount'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_qty'], (int, float))
             self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)
 
@@ -158,7 +158,7 @@ class TestSturdyLendingPoolBorrowOverview(unittest.TestCase):
             self.assertIsInstance(aOverview, dict)
 
             self.assertIsInstance(aOverview['pit_token_symbol'], str)
-            self.assertIsInstance(aOverview['pit_token_amount'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_qty'], (int, float))
             self.assertIsInstance(aOverview['pit_token_price'], (int, float))
             self.assertIsInstance(aOverview['pit_health_factor'], (int, float))
         builtins.print('\n', overview)
@@ -208,6 +208,6 @@ class TestSturdyLendingPoolIncentiveOverview(unittest.TestCase):
             self.assertIsInstance(aOverview, dict)
 
             self.assertIsInstance(aOverview['pit_token_symbol'], str)
-            self.assertIsInstance(aOverview['pit_token_amount'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_qty'], (int, float))
             self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)

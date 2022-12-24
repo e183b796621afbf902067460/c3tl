@@ -57,7 +57,7 @@ class TestEllipsisDEXPoolOverview(unittest.TestCase):
             self.assertIsInstance(aOverview, dict)
 
             self.assertIsInstance(aOverview['pit_token_symbol'], str)
-            self.assertIsInstance(aOverview['pit_token_reserve'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_qty'], (int, float))
             self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)
 
@@ -105,7 +105,7 @@ class TestEllipsisFarmingPoolOverview(unittest.TestCase):
             self.assertIsInstance(aOverview, dict)
 
             self.assertIsInstance(aOverview['pit_token_symbol'], str)
-            self.assertIsInstance(aOverview['pit_token_reserve'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_qty'], (int, float))
             self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)
 
@@ -154,7 +154,7 @@ class TestEllipsisFarmingPoolAllocationOverview(unittest.TestCase):
             self.assertIsInstance(aOverview, dict)
 
             self.assertIsInstance(aOverview['pit_token_symbol'], str)
-            self.assertIsInstance(aOverview['pit_token_amount'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_qty'], (int, float))
             self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)
 
@@ -203,6 +203,6 @@ class TestEllipsisFarmingPoolIncentiveOverview(unittest.TestCase):
             self.assertIsInstance(aOverview, dict)
 
             self.assertIsInstance(aOverview['pit_token_symbol'], str)
-            self.assertIsInstance(aOverview['pit_token_amount'], (int, float))
+            self.assertIsInstance(aOverview['pit_token_qty'], (int, float))
             self.assertIsInstance(aOverview['pit_token_price'], (int, float))
         builtins.print('\n', overview)
