@@ -50,7 +50,7 @@ class EllipsisFarmingPoolOverview(IInstrumentOverview, EllipsisRewardsTokenContr
 
         aOverview: dict = {
             'pit_token_symbol': symbol,
-            'pit_token_reserve': totalLPLocked / 10 ** decimals,
+            'pit_token_qty': totalLPLocked / 10 ** decimals,
             'pit_token_price': price
             }
         overview.append(aOverview)
@@ -75,7 +75,7 @@ class EllipsisFarmingPoolAllocationOverview(EllipsisFarmingPoolOverview):
 
         allocationOverview: dict = {
             'pit_token_symbol': symbol,
-            'pit_token_amount': amount / 10 ** decimals,
+            'pit_token_qty': amount / 10 ** decimals,
             'pit_token_price': price
         }
         overview.append(allocationOverview)
@@ -105,7 +105,7 @@ class EllipsisFarmingPoolIncentiveOverview(EllipsisFarmingPoolOverview):
 
         incentiveOverview: dict = {
             'pit_token_symbol': rewardSymbol,
-            'pit_token_amount': amount / 10 ** rewardDecimals,
+            'pit_token_qty': amount / 10 ** rewardDecimals,
             'pit_token_price': rewardPrice
         }
         overview.append(incentiveOverview)

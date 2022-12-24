@@ -36,7 +36,7 @@ class CurveDEXPoolOverview(IInstrumentOverview, CurvePoolContract):
 
             aOverview: dict = {
                 'pit_token_symbol': symbol,
-                'pit_token_reserve': reserve,
+                'pit_token_qty': reserve,
                 'pit_token_price': price
             }
             overview.append(aOverview)
@@ -64,7 +64,7 @@ class CurveFarmingPoolOverview(IInstrumentOverview, CurveGaugeContract):
 
         aOverview: dict = {
             'pit_token_symbol': symbol,
-            'pit_token_reserve': reserve,
+            'pit_token_qty': reserve,
             'pit_token_price': price
         }
         overview.append(aOverview)
@@ -93,7 +93,7 @@ class CurveFarmingPoolAllocationOverview(IInstrumentOverview, CurveGaugeContract
 
         allocationOverview: dict = {
             'pit_token_symbol': symbol,
-            'pit_token_amount': balanceOf / 10 ** decimals,
+            'pit_token_qty': balanceOf / 10 ** decimals,
             'pit_token_price': price
         }
         overview.append(allocationOverview)
@@ -123,7 +123,7 @@ class CurveFarmingPoolIncentiveOverview(IInstrumentOverview, CurveLiquidityGauge
 
         crvOverview: dict = {
             'pit_token_symbol': crvSymbol,
-            'pit_token_amount': crvIncentives / 10 ** crvDecimals,
+            'pit_token_qty': crvIncentives / 10 ** crvDecimals,
             'pit_token_price': crvPrice
         }
         overview.append(crvOverview)
@@ -154,7 +154,7 @@ class CurveFarmingPoolIncentiveOverview(IInstrumentOverview, CurveLiquidityGauge
 
             tOverview: dict = {
                 'pit_token_symbol': symbol,
-                'pit_token_amount': incentives / 10 ** decimals,
+                'pit_token_qty': incentives / 10 ** decimals,
                 'pit_token_price': price
             }
             overview.append(tOverview)

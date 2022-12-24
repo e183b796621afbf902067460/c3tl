@@ -92,7 +92,7 @@ class GeistLendingPoolIncentiveOverview(IInstrumentOverview, GeistLendingPoolCon
 
             aOverview: dict = {
                 'pit_token_symbol': geistSymbol,
-                'pit_token_amount': totalIncentives / 10 ** geistDecimals,
+                'pit_token_qty': totalIncentives / 10 ** geistDecimals,
                 'pit_token_price': geistPrice
             }
             overview.append(aOverview)

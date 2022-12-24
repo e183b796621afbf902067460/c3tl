@@ -76,7 +76,7 @@ class SushiSwapFarmingPoolIncentiveOverview(SushiSwapFarmingPoolAllocationOvervi
 
         incentiveOverview: dict = {
             'pit_token_symbol': sushiSymbol,
-            'pit_token_amount': sushies,
+            'pit_token_qty': sushies,
             'pit_token_price': sushiPrice
         }
 

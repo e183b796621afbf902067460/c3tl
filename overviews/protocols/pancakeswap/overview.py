@@ -76,13 +76,13 @@ class PancakeSwapFarmingPoolOverview(IInstrumentOverview, PancakePairContract):
 
         t0Overview: dict = {
             'pit_token_symbol': t0Symbol,
-            'pit_token_reserve': t0Locked,
+            'pit_token_qty': t0Locked,
             'pit_token_price': t0Price
         }
 
         t1Overview: dict = {
             'pit_token_symbol': t1Symbol,
-            'pit_token_reserve': t1Locked,
+            'pit_token_qty': t1Locked,
             'pit_token_price': t1Price
         }
 
@@ -144,13 +144,13 @@ class PancakeSwapFarmingPoolAllocationOverview(PancakeSwapFarmingPoolOverview):
 
         t0Overview: dict = {
             'pit_token_symbol': t0Symbol,
-            'pit_token_amount': t0Amount,
+            'pit_token_qty': t0Amount,
             'pit_token_price': t0Price
         }
 
         t1Overview: dict = {
             'pit_token_symbol': t1Symbol,
-            'pit_token_amount': t1Amount,
+            'pit_token_qty': t1Amount,
             'pit_token_price': t1Price
         }
 
@@ -191,7 +191,7 @@ class PancakeSwapFarmingPoolIncentiveOverview(PancakeSwapFarmingPoolOverview):
 
         incentiveOverview: dict = {
             'pit_token_symbol': cakeSymbol,
-            'pit_token_amount': cakes,
+            'pit_token_qty': cakes,
             'pit_token_price': cakePrice
         }
 

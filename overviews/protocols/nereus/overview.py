@@ -54,7 +54,7 @@ class NereusLendingPoolAllocationOverview(IInstrumentOverview, NereusLendingPool
 
                     aOverview: dict = {
                         'pit_token_symbol': reserveTokenSymbol,
-                        'pit_token_amount': collateral,
+                        'pit_token_qty': collateral,
                         'pit_token_price': reserveTokenPrice
                     }
                     overview.append(aOverview)
@@ -113,7 +113,7 @@ class NereusLendingPoolBorrowOverview(IInstrumentOverview, NereusLendingPoolCont
 
                     aOverview: dict = {
                         'pit_token_symbol': reserveTokenSymbol,
-                        'pit_token_amount': debt,
+                        'pit_token_qty': debt,
                         'pit_token_price': reserveTokenPrice,
                         'pit_health_factor': healthFactor / 10 ** self._DECIMALS
                     }
@@ -184,7 +184,7 @@ class NereusLendingPoolIncentiveOverview(IInstrumentOverview, NereusLendingPoolC
 
             aOverview: dict = {
                 'pit_token_symbol': geistSymbol,
-                'pit_token_amount': totalIncentives / 10 ** geistDecimals,
+                'pit_token_qty': totalIncentives / 10 ** geistDecimals,
                 'pit_token_price': geistPrice
             }
             overview.append(aOverview)

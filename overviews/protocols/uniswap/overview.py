@@ -38,12 +38,12 @@ class UniSwapV2DEXPoolOverview(IInstrumentOverview, UniSwapV2PairContract):
 
         t0Overview: dict = {
             'pit_token_symbol': t0Symbol,
-            'pit_token_reserve': t0Reserve,
+            'pit_token_qty': t0Reserve,
             'pit_token_price': t0Price
         }
         t1Overview: dict = {
             'pit_token_symbol': t1Symbol,
-            'pit_token_reserve': t1Reserve,
+            'pit_token_qty': t1Reserve,
             'pit_token_price': t1Price
         }
 
@@ -94,13 +94,13 @@ class UniSwapV2DEXPoolAllocationOverview(IInstrumentOverview, UniSwapV2PairContr
 
         t0Overview: dict = {
             'pit_token_symbol': t0Symbol,
-            'pit_token_amount': t0Amount,
+            'pit_token_qty': t0Amount,
             'pit_token_price': t0Price
         }
 
         t1Overview: dict = {
             'pit_token_symbol': t1Symbol,
-            'pit_token_amount': t1Amount,
+            'pit_token_qty': t1Amount,
             'pit_token_price': t1Price
         }
 

@@ -112,7 +112,7 @@ class AaveV2LendingPoolAllocationOverview(IInstrumentOverview, AaveLendingPoolV2
 
                     aOverview: dict = {
                         'pit_token_symbol': reserveTokenSymbol,
-                        'pit_token_amount': collateral,
+                        'pit_token_qty': collateral,
                         'pit_token_price': reserveTokenPrice
                     }
                     overview.append(aOverview)
@@ -171,7 +171,7 @@ class AaveV2LendingPoolBorrowOverview(IInstrumentOverview, AaveLendingPoolV2Cont
 
                     aOverview: dict = {
                         'pit_token_symbol': reserveTokenSymbol,
-                        'pit_token_amount': debt,
+                        'pit_token_qty': debt,
                         'pit_token_price': reserveTokenPrice,
                         'pit_health_factor': healthFactor / 10 ** self._DECIMALS
                     }
@@ -234,7 +234,7 @@ class AaveV2LendingPoolIncentiveOverview(IInstrumentOverview, AaveLendingPoolV2C
 
                     aOverview: dict = {
                         'pit_token_symbol': rewardSymbol,
-                        'pit_token_amount': incentivesAmount / 10 ** rewardDecimals,
+                        'pit_token_qty': incentivesAmount / 10 ** rewardDecimals,
                         'pit_token_price': rewardPrice
                     }
                     if aOverview not in overview:

@@ -31,7 +31,7 @@ class ConvexStakingPoolOverview(IInstrumentOverview, ConvexBaseRewardPoolContrac
 
         aOverview: dict = {
             'pit_token_symbol': symbol,
-            'pit_token_reserve': reserve,
+            'pit_token_qty': reserve,
             'pit_token_price': price
         }
         overview.append(aOverview)
@@ -60,7 +60,7 @@ class ConvexStakingPoolAllocationOverview(IInstrumentOverview, ConvexBaseRewardP
 
         allocationOverview: dict = {
             'pit_token_symbol': symbol,
-            'pit_token_amount': balanceOf / 10 ** decimals,
+            'pit_token_qty': balanceOf / 10 ** decimals,
             'pit_token_price': price
         }
         overview.append(allocationOverview)
@@ -110,7 +110,7 @@ class ConvexStakingPoolIncentiveOverview(IInstrumentOverview, ConvexBaseRewardPo
 
             cvxOverview: dict = {
                 'pit_token_symbol': cvxSymbol,
-                'pit_token_amount': min(cvx, amount),
+                'pit_token_qty': min(cvx, amount),
                 'pit_token_price': cvxPrice
             }
             return cvxOverview
@@ -135,7 +135,7 @@ class ConvexStakingPoolIncentiveOverview(IInstrumentOverview, ConvexBaseRewardPo
 
         crvOverview: dict = {
             'pit_token_symbol': crvSymbol,
-            'pit_token_amount': balanceOf,
+            'pit_token_qty': balanceOf,
             'pit_token_price': crvPrice
         }
         overview.append(crvOverview)
@@ -163,7 +163,7 @@ class ConvexStakingPoolIncentiveOverview(IInstrumentOverview, ConvexBaseRewardPo
 
             extraOverview: dict = {
                 'pit_token_symbol': extraSymbol,
-                'pit_token_amount': balanceOf,
+                'pit_token_qty': balanceOf,
                 'pit_token_price': extraPrice
             }
             overview.append(extraOverview)
