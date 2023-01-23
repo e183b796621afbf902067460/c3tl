@@ -1,0 +1,5 @@
+from typing import TypeVar
+from c3tl.interfaces.handlers.whole_market_trades_history.interface import iWholeMarketTradesHistoryHandler
+
+
+WholeMarketTradesHistoryHandler = TypeVar('WholeMarketTradesHistoryHandler', bound=iWholeMarketTradesHistoryHandler)
