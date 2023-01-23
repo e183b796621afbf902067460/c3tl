@@ -54,3 +54,7 @@ class BinanceSpotWholeMarketTradesHandler(BinanceSpotExchange, iWholeMarketTrade
                 break
             overviews.extend([self._formatting(json_=agg_trade) for agg_trade in agg_trades])
         return overviews
+
+
+class BinanceUSDTmWholeMarketTradesHandler(BinanceUSDTmExchange, BinanceSpotWholeMarketTradesHandler):
+    ...

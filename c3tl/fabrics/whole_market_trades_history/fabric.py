@@ -3,7 +3,7 @@ from typing import Generic
 from c3tl.interfaces.fabric.interface import iFabric
 from c3tl.typings.handlers.whole_market_trades_history.typing import WholeMarketTradesHistoryHandler
 
-from c3tl.handlers.whole_market_trades_history.binance.handlers import BinanceSpotWholeMarketTradesHandler
+from c3tl.handlers.whole_market_trades_history.binance.handlers import BinanceSpotWholeMarketTradesHandler, BinanceUSDTmWholeMarketTradesHandler
 
 
 class WholeMarketTradesHistoryFabric(iFabric):
@@ -22,3 +22,4 @@ class WholeMarketTradesHistoryFabric(iFabric):
 wholeMarketTradesHistoryFabric = WholeMarketTradesHistoryFabric()
 
 wholeMarketTradesHistoryFabric.add_handler(exchange='binance_spot', handler=BinanceSpotWholeMarketTradesHandler)
+wholeMarketTradesHistoryFabric.add_handler(exchange='binance_usdt_m', handler=BinanceUSDTmWholeMarketTradesHandler)
