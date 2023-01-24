@@ -15,7 +15,7 @@ class AccountBalancesFabric(iFabric):
     def get_handler(self, exchange: str) -> Generic[AccountBalancesHandler]:
         handler = self._handlers.get(exchange)
         if not handler:
-            raise ValueError(f'Set Spot Balances overview handler for {exchange}')
+            raise ValueError(f'Set Account Balances overview handler for {exchange}')
         return handler
 
 
