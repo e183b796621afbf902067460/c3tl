@@ -12,8 +12,8 @@ class BinanceSpotWholeMarketTradesHandler(BinanceSpotExchange, iWholeMarketTrade
     @staticmethod
     def _formatting(json_: dict) -> dict:
         return {
-            'pit_price': json_['p'],
-            'pit_qty': json_['q'],
+            'pit_price': float(json_['p']),
+            'pit_qty': float(json_['q']),
             'pit_ts': json_['T'],
             'pit_side': 'BUY' if json_['m'] else 'SELL'
         }

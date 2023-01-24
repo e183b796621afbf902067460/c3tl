@@ -4,6 +4,7 @@ from typing import final
 from c3tl.interfaces.fabric.interface import iFabric
 
 from c3tl.fabrics.whole_market_trades_history.fabric import wholeMarketTradesHistoryFabric
+from c3tl.fabrics.account_balances.fabric import accountBalancesFabric
 
 
 class C3AbstractFabric(ABC):
@@ -27,3 +28,4 @@ class C3AbstractFabric(ABC):
 c3Abstract: C3AbstractFabric = C3AbstractFabric()
 
 c3Abstract.add_fabric(fabric_name='whole_market_trades_history', fabric=wholeMarketTradesHistoryFabric)
+c3Abstract.add_fabric(fabric_name='account_balances', fabric=accountBalancesFabric)
