@@ -2,7 +2,7 @@ from c3tl.interfaces.handlers.account_balances.interface import iAccountBalances
 
 from c3f1nance.binance.Spot import BinanceSpotExchange
 from c3f1nance.binance.USDTm import BinanceUSDTmExchange
-from trad3er.typings.trader.typing import Trad3r
+from trad3r.typings.trader.typing import Trad3r
 
 import time
 import requests as r

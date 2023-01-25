@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from trad3er.typings.trader.typing import Trad3r
+from trad3r.typings.trader.typing import Trad3r
 
 
 class iAccountBalancesHandler(ABC):

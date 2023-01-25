@@ -7,7 +7,7 @@ from c3tl.handlers.account_limit_orders.binance.handlers import BinanceUSDTmAcco
 from c3tl.abstract.fabric import c3Abstract
 from c3tl.bridge.configurator import C3BridgeConfigurator
 
-from trad3er.root.composite.trader import rootTrad3r
+from trad3r.root.composite.trader import rootTrad3r
 
 
 class TestBinanceUSDTmAccountLimitOrdersHandler(unittest.TestCase):

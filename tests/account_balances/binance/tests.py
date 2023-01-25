@@ -7,7 +7,7 @@ from c3tl.handlers.account_balances.binance.handlers import BinanceSpotAccountBa
 from c3tl.abstract.fabric import c3Abstract
 from c3tl.bridge.configurator import C3BridgeConfigurator
 
-from trad3er.root.composite.trader import rootTrad3r
+from trad3r.root.composite.trader import rootTrad3r
 
 
 class TestBinanceSpotAccountBalancesHandler(unittest.TestCase):
