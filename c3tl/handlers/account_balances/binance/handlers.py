@@ -14,6 +14,12 @@ class BinanceSpotAccountBalancesHandler(BinanceSpotExchange, iAccountBalancesHan
         BinanceSpotExchange.__init__(self, *args, **kwargs)
         iAccountBalancesHandler.__init__(self, trader=trader)
 
+    def _formatting(self, json_: dict) -> dict:
+        return {
+            'pit_qty': float(json_['free']) + float(json_['locked']),
+            'pit_current_price': self.trader.get_price(first=json_['asset'])
+        }
+
     def get_overview(
             self,
             ticker: str,
@@ -26,12 +32,7 @@ class BinanceSpotAccountBalancesHandler(BinanceSpotExchange, iAccountBalancesHan
         account = account.json()
         for balance in account['balances']:
             if balance['asset'] == ticker:
-                overviews.append(
-                    {
-                        'pit_qty': float(balance['free']) + float(balance['locked']),
-                        'pit_price': self.trader.get_price(first=balance['asset'])
-                    }
-                )
+                overviews.append(self._formatting(json_=balance))
                 break
         return overviews
 
@@ -41,6 +42,12 @@ class BinanceUSDTmAccountBalancesHandler(BinanceUSDTmExchange, iAccountBalancesH
     def __init__(self, trader: Trad3r, *args, **kwargs) -> None:
         BinanceUSDTmExchange.__init__(self, *args, **kwargs)
         iAccountBalancesHandler.__init__(self, trader=trader)
+
+    def _formatting(self, json_: dict) -> dict:
+        return {
+            'pit_qty': float(json_['marginBalance']),
+            'pit_current_price': self.trader.get_price(first=json_['asset'])
+        }
 
     def get_overview(
             self,
@@ -55,11 +62,6 @@ class BinanceUSDTmAccountBalancesHandler(BinanceUSDTmExchange, iAccountBalancesH
 
         for asset in account['assets']:
             if asset['asset'] == ticker:
-                overviews.append(
-                    {
-                        'pit_qty': float(asset['marginBalance']),
-                        'pit_price': self.trader.get_price(first=asset['asset'])
-                    }
-                )
+                overviews.append(self._formatting(json_=asset))
                 break
         return overviews

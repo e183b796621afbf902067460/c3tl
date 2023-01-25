@@ -13,6 +13,17 @@ class BinanceUSDTmAccountLiquidationsHandler(BinanceUSDTmExchange, iAccountLiqui
         BinanceUSDTmExchange.__init__(self, *args, **kwargs)
         iAccountLiquidationsHandler.__init__(self, trader=trader)
 
+    def _formatting(self, json_: dict, ticker: str) -> dict:
+        return {
+            'pit_amt': float(json_['positionAmt']),
+            'pit_entry_price': float(json_['entryPrice']),
+            'pit_liquidation_price': float(json_['liquidationPrice']),
+            'pit_current_price': self.trader.get_price(first=ticker[:-4], source='binance_usdt_m'),
+            'pit_side': json_['positionSide'],
+            'pit_leverage': float(json_['leverage']),
+            'pit_un_pnl': float(json_['unRealizedProfit'])
+        }
+
     def get_overview(
             self,
             ticker: str,
@@ -21,18 +32,8 @@ class BinanceUSDTmAccountLiquidationsHandler(BinanceUSDTmExchange, iAccountLiqui
         overviews: list = list()
         position_risk = self.positionRisk(symbol=ticker, timestamp=int(time.time() * 1000))
         if not self._validate_response(position_risk):
-            raise r.HTTPError(f'Invalid status code for account in {self.__class__.__name__}')
+            raise r.HTTPError(f'Invalid status code for positionRisk in {self.__class__.__name__}')
         position_risk = position_risk.json()
         for position in position_risk:
-            overviews.append(
-                {
-                    'pit_amt': float(position['positionAmt']),
-                    'pit_entry_price': float(position['entryPrice']),
-                    'pit_liquidation_price': float(position['liquidationPrice']),
-                    'pit_price': self.trader.get_price(first=ticker[:-4], source='binance_usdt_m'),
-                    'pit_side': position['positionSide'],
-                    'pit_leverage': float(position['leverage']),
-                    'pit_un_pnl': float(position['unRealizedProfit'])
-                }
-            )
+            overviews.append(self._formatting(json_=position, ticker=ticker))
         return overviews
