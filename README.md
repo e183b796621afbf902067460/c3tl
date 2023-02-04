@@ -1,58 +1,30 @@
-# DeFi Overviews Fabric
+# C3tl
 
-Depends on: [defi-head-core](https://github.com/e183b796621afbf902067460/defi-head-core), [defi-providers-fabric](https://github.com/e183b796621afbf902067460/defi-providers-fabric), [defi-web3](https://github.com/e183b796621afbf902067460/defi-web3) and for tests will be needed [defi-traders-composite](https://github.com/e183b796621afbf902067460/defi-traders-composite).
+Depends on: [medici](https://github.com/e183b796621afbf902067460/medici), [c3f1nance](https://github.com/e183b796621afbf902067460/c3f1nance) and [trad3r](https://github.com/e183b796621afbf902067460/trad3r).
 
 ---
-The Overview object is a complex class that helps to get the necessary data from a smart contract. Different Overviews return different data. Based on input arguments an [`OverviewAbstractFabric`](https://github.com/e183b796621afbf902067460/defi-overviews-fabric/blob/master/overviews/abstracts/fabric.py) return [`IConcreteFabric`](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/interfaces/fabrics/interface.py) object such as: [*DEXPoolOverviewFabric*](https://github.com/e183b796621afbf902067460/defi-overviews-fabric/blob/master/overviews/fabrics/dexPool/fabric.py), [*StakingPoolOverviewFabric*](https://github.com/e183b796621afbf902067460/defi-overviews-fabric/blob/master/overviews/fabrics/stakingPool/fabric.py) or  [*LendingPoolOverviewFabric*](https://github.com/e183b796621afbf902067460/defi-overviews-fabric/blob/master/overviews/fabrics/lendingPool/fabric.py) etc.
-`IConcreteFabric` (DEX, Staking or Lending etc.) can produce needed [`IInstrumentOverview Class`](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/interfaces/overview/builder.py) for different purposes.
+C3tl is an ETL-framework that helps to get the needed data from cryptocurrencies exchanges. The scalability of the framework is based on it's architecture that provides a simple way to scale up amount of a new handlers and add it to right factories. Each factory is an independent analytical unit and must located at abstract factory. Bridge helps to orchestrate of whole amount of factories and handlers.
 
-# Configuration
-To provide needed configuration just need to set environment variables for needed blockchain node in certain [fabric](https://github.com/e183b796621afbf902067460/defi-providers-fabric/tree/master/providers/fabrics).
+# Installation
+```
+pip install git+https://github.com/e183b796621afbf902067460/c3tl.git#egg=c3tl
+```
 
 # Usage
-For example, to get [`CurveDEXPoolOverview`](https://github.com/e183b796621afbf902067460/defi-overviews-fabric/blob/master/overviews/protocols/curve/overview.py) need to call [`BridgeConfigurator`](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/bridge/configurator.py) and pass to it constructor next arguments and then call `produceProduct()` method:
+For example, to get [`BinanceSpotWholeMarketTradesHandler`](https://github.com/e183b796621afbf902067460/c3tl/blob/master/c3tl/handlers/whole_market_trades_history/binance/handlers.py#L10) need to call [`C3BridgeConfigurator`](https://github.com/e183b796621afbf902067460/c3tl/blob/master/c3tl/bridge/configurator.py#L5) and pass to it constructor next arguments and then call `produce_handler()` method:
 
 ```python
-from head.bridge.configurator import BridgeConfigurator
-from c3tl.abstract.fabric import overviewAbstractFabric
+from c3tl.abstract.fabric import c3Abstract
+from c3tl.bridge.configurator import C3BridgeConfigurator
 
-concreteFabricKey = 'dex-pool-overview'
-concreteProductKey = 'curve'
 
-overview = BridgeConfigurator(
-    abstractFabric=overviewAbstractFabric,
-    fabricKey=concreteFabricKey,
-    productKey=concreteProductKey)
-.produceProduct()
+class_ = C3BridgeConfigurator(
+    abstract=c3Abstract,
+    fabric_name='whole_market_trades_history',
+    handler_name='binance_spot'
+).produce_handler()
+
+handler = class_()
 ```
 
-Current overview object is `CurveDEXPoolOverview`. After it's production need to set certain __properties__ to call `create()` method correctly. Let's see how it works in synergy:
-
-```python
-from head.bridge.configurator import BridgeConfigurator
-
-from providers.abstracts.fabric import providerAbstractFabric
-from c3tl.abstract.fabric import overviewAbstractFabric
-from traders.head.trader import headTrader
-
-_address = '0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7'
-
-_provider = BridgeConfigurator(
-    abstractFabric=providerAbstractFabric,
-    fabricKey='http',
-    productKey='eth')
-.produceProduct()
-
-instance = BridgeConfigurator(
-    abstractFabric=overviewAbstractFabric,
-    fabricKey='dex-pool-overview',
-    productKey='curve')
-.produceProduct()()
-.setAddress(address=_address)
-.setProvider(provider=_provider)
-.setTrader(trader=headTrader)
-.create()
-```
-After call `instance.getOverview()` it'll return a __Future__ object because it's a [@threadmethod](https://github.com/e183b796621afbf902067460/defi-head-core/blob/master/head/decorators/threadmethod.py), so if returned value is needed just call `instance.getOverview().result()`, but only in test environment.
-
-All fabrics and products keys can be viewed in the right factories.
+Current handler is `BinanceSpotWholeMarketTradesHandler`. After this we can call `get_overview()` method and pass ticker, start and end time in arguments to get the whole market trades from Binance SPOT section.
