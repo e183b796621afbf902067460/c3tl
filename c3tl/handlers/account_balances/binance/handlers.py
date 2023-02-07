@@ -16,8 +16,8 @@ class BinanceSpotAccountBalancesHandler(BinanceSpotExchange, iAccountBalancesHan
 
     def _formatting(self, json_: dict) -> dict:
         return {
-            'pit_qty': float(json_['free']) + float(json_['locked']),
-            'pit_current_price': self.trader.get_price(first=json_['asset'])
+            'qty': float(json_['free']) + float(json_['locked']),
+            'current_price': self.trader.get_price(first=json_['asset'])
         }
 
     def get_overview(
@@ -45,8 +45,8 @@ class BinanceUSDTmAccountBalancesHandler(BinanceUSDTmExchange, iAccountBalancesH
 
     def _formatting(self, json_: dict) -> dict:
         return {
-            'pit_qty': float(json_['marginBalance']),
-            'pit_current_price': self.trader.get_price(first=json_['asset'])
+            'qty': float(json_['marginBalance']),
+            'current_price': self.trader.get_price(first=json_['asset'])
         }
 
     def get_overview(

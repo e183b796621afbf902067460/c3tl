@@ -15,13 +15,13 @@ class BinanceUSDTmAccountLiquidationsHandler(BinanceUSDTmExchange, iAccountLiqui
 
     def _formatting(self, json_: dict, ticker: str) -> dict:
         return {
-            'pit_amt': float(json_['positionAmt']),
-            'pit_entry_price': float(json_['entryPrice']),
-            'pit_liquidation_price': float(json_['liquidationPrice']),
-            'pit_current_price': self.trader.get_price(first=ticker[:-4], source='binance_usdt_m'),
-            'pit_side': json_['positionSide'],
-            'pit_leverage': float(json_['leverage']),
-            'pit_un_pnl': float(json_['unRealizedProfit'])
+            'amt': float(json_['positionAmt']),
+            'entry_price': float(json_['entryPrice']),
+            'liquidation_price': float(json_['liquidationPrice']),
+            'current_price': self.trader.get_price(first=ticker[:-4], source='binance_usdt_m'),
+            'side': json_['positionSide'],
+            'leverage': float(json_['leverage']),
+            'un_pnl': float(json_['unRealizedProfit'])
         }
 
     def get_overview(
