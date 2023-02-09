@@ -42,7 +42,7 @@ class BinanceUSDTmAccountLiquidationsHandler(BinanceUSDTmExchange, iAccountLiqui
                     'amt': None,
                     'entry_price': None,
                     'liquidation_price': None,
-                    'current_price': None,
+                    'current_price': self.trader.get_price(first=ticker[:-4], source='binance_usdt_m'),
                     'side': None,
                     'leverage': None,
                     'un_pnl': None

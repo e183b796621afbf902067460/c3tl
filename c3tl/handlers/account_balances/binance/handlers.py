@@ -64,4 +64,11 @@ class BinanceUSDTmAccountBalancesHandler(BinanceUSDTmExchange, iAccountBalancesH
             if asset['asset'] == ticker:
                 overviews.append(self._formatting(json_=asset))
                 break
+        if not overviews:
+            overviews.append(
+                {
+                    'qty': None,
+                    'current_price': self.trader.get_price(first=ticker)
+                }
+            )
         return overviews

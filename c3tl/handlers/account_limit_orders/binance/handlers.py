@@ -15,9 +15,9 @@ class BinanceUSDTmAccountLimitOrdersHandler(BinanceUSDTmExchange, iAccountLimitO
 
     def _formatting(self, json_: dict, ticker: str) -> dict:
         return {
-            'limit_order_price': json_['price'],
+            'limit_order_price': float(json_['price']),
             'current_price': self.trader.get_price(first=ticker[:-4], source='binance_usdt_m'),
-            'qty': json_['origQty'],
+            'qty': float(json_['origQty']),
             'side': json_['side']
         }
 
@@ -37,7 +37,7 @@ class BinanceUSDTmAccountLimitOrdersHandler(BinanceUSDTmExchange, iAccountLimitO
             overviews.append(
                 {
                     'limit_order_price': None,
-                    'current_price': None,
+                    'current_price': self.trader.get_price(first=ticker[:-4], source='binance_usdt_m'),
                     'qty': None,
                     'side': None
                 }
