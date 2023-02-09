@@ -36,4 +36,16 @@ class BinanceUSDTmAccountLiquidationsHandler(BinanceUSDTmExchange, iAccountLiqui
         position_risk = position_risk.json()
         for position in position_risk:
             overviews.append(self._formatting(json_=position, ticker=ticker))
+        if not overviews:
+            overviews.append(
+                {
+                    'amt': None,
+                    'entry_price': None,
+                    'liquidation_price': None,
+                    'current_price': None,
+                    'side': None,
+                    'leverage': None,
+                    'un_pnl': None
+                }
+            )
         return overviews

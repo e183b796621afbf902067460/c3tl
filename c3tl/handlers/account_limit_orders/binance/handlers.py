@@ -33,4 +33,13 @@ class BinanceUSDTmAccountLimitOrdersHandler(BinanceUSDTmExchange, iAccountLimitO
         open_orders = open_orders.json()
         for open_order in open_orders:
             overviews.append(self._formatting(json_=open_order, ticker=ticker))
+        if not overviews:
+            overviews.append(
+                {
+                    'limit_order_price': None,
+                    'current_price': None,
+                    'qty': None,
+                    'side': None
+                }
+            )
         return overviews
