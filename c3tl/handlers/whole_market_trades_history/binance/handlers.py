@@ -14,7 +14,7 @@ class BinanceSpotWholeMarketTradesHandler(BinanceSpotExchange, iWholeMarketTrade
         return {
             'price': float(json_['p']),
             'qty': float(json_['q']),
-            'ts': json_['T'],
+            'ts': datetime.datetime.fromtimestamp(json_['T'] / 10 ** 3),
             'side': 'BUY' if json_['m'] else 'SELL'
         }
 
